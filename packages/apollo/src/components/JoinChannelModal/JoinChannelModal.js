@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { ToggleSmall } from 'carbon-components-react';
-// import ToggleSmallSkeleton from 'carbon-components-react/lib/components/ToggleSmall/ToggleSmall.Skeleton';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -26,6 +25,7 @@ import { EventsRestApi } from '../../rest/EventsRestApi';
 import { MspRestApi } from '../../rest/MspRestApi';
 import { OrdererRestApi } from '../../rest/OrdererRestApi';
 import { PeerRestApi } from '../../rest/PeerRestApi';
+import SignatureRestApi from '../../rest/SignatureRestApi';
 import Helper from '../../utils/helper';
 import NodeStatus from '../../utils/status';
 import ConfigOverride from '../ConfigOverride/ConfigOverride';
@@ -91,6 +91,131 @@ class JoinChannelModal extends React.Component {
 			});
 		}
 	}
+
+
+	async getCreateChannelRequests() {
+		let requests = [];
+		if (this.props.signature_requests && this.props.signature_requests.length) {
+			this.props.signature_requests.forEach(req => {
+				if (this.isVisibleCreateRequest(req)) {
+					requests.push(req);
+				}
+			});
+		} else {
+			requests = await SignatureRestApi.getCreateChannelRequests();
+		}
+		return requests;
+	};
+
+	populatePendingChannels = joinedChannels => {
+		OrdererRestApi.getOrderers(false).then(async orderers => {
+			if (!this.mounted) {
+				return;
+			}
+
+			// Build list that includes all raft nodes from all the console ordering services
+			let all_nodes = [];
+			orderers.forEach(orderer => {
+				if (_.has(orderer, 'raft')) {
+					orderer.raft.forEach(x => all_nodes.push(x));
+				} else {
+					all_nodes.push(orderer);
+				}
+			});
+
+			// Get pending channels from notifications instead of local storage
+			const pendingChannels = [];
+			let signature_requests = await this.getCreateChannelRequests();
+			signature_requests.forEach(notification => {
+				let notification_orderers = [];
+				if (_.has(notification, 'consenters')) {
+					notification.consenters.forEach(url => {
+						let orderer_details = all_nodes.find(x => _.toLower(x.backend_addr) === _.toLower(url));
+						if (orderer_details) {
+							notification_orderers.push(orderer_details);
+						} else {
+							notification_orderers.push({ backend_addr: url, name: url });
+						}
+					});
+				} else {
+					// If there were pending tiles before migrating to 2.1.3, handle them the old way so that we dont loose the tile after migration
+					notification.orderers.forEach(url => {
+						let orderer_details = all_nodes.find(x => {
+							const url1 = x.url2use.substring(x.url2use.indexOf('/grpcwp/') + 8); // Proxy ports have changed, so compare only url after /grpcwp/
+							const url2 = url.indexOf('/grpcwp/') > 0 ? url.substring(url.indexOf('/grpcwp/') + 8) : url;
+							return _.toLower(decodeURIComponent(url1)) === _.toLower(decodeURIComponent(url2));
+						});
+						if (orderer_details) {
+							notification_orderers.push(orderer_details);
+						} else {
+							notification_orderers.push({ backend_addr: url, name: url });
+						}
+					});
+				}
+				let matchingJoinedChannel =
+					joinedChannels && joinedChannels.length
+						? joinedChannels.find(channel => {
+							let allChannelOrderers = [];
+							if (channel.orderers) {
+								channel.orderers.forEach(orderer => {
+									if (_.has(orderer, 'raft')) {
+										orderer.raft.forEach(y => allChannelOrderers.push(y));
+									} else {
+										allChannelOrderers.push(orderer);
+									}
+								});
+							}
+							let joinedChannelOrderers = allChannelOrderers.map(orderer => (orderer.backend_addr ? orderer.backend_addr : orderer.name));
+							let pendingChannelOrderers = notification_orderers
+								? notification_orderers.map(orderer => (orderer ? (orderer.backend_addr ? orderer.backend_addr : orderer.name) : ''))
+								: [];
+							let match = channel.name === notification.channel && _.intersection(pendingChannelOrderers, joinedChannelOrderers).length > 0;
+							return match;
+						})
+						: null;
+				if (!matchingJoinedChannel) {
+					pendingChannels.push({
+						id: notification.channel,
+						name: notification.channel,
+						orderers: notification_orderers,
+						pending: true,
+					});
+				}
+			});
+
+			let allChannels = _.size(joinedChannels) > 0 ? joinedChannels.concat(pendingChannels) : pendingChannels;
+			// Filter out the pending channels whose orderers are not imported in this console
+			let filteredChannels = [];
+			if (_.size(all_nodes) > 0) {
+				const all_nodes_grpcurls = all_nodes.map(x => x.grpcwp_url); // To support older notifications that dont have consenters data
+				const all_nodes_backendaddr = all_nodes.map(x => x.backend_addr);
+				const all_nodes_url2use = all_nodes.map(x => x.url2use);
+				const consoleOrdererAddresses = all_nodes_backendaddr.concat(all_nodes_grpcurls).concat(all_nodes_url2use);
+
+				filteredChannels = allChannels.filter(channel => {
+					let channelOrdererAddresses = channel.orderers.map(x => x.backend_addr);
+					return channel.pending ? _.intersection(consoleOrdererAddresses, channelOrdererAddresses).length > 0 : channel;
+				});
+			} else {
+				filteredChannels = allChannels.filter(channel => {
+					return channel.pending ? false : channel;
+				});
+			}
+			// Pending tile should show only one associated orderer(which includes all the raft nodes)
+			pendingChannels.forEach(pc => {
+				let pc_cluster_ids = pc.orderers.map(x => x.cluster_id);
+				orderers.forEach(orderer => {
+					if (pc_cluster_ids.includes(orderer.cluster_id)) {
+						pc.orderers = [orderer];
+					}
+				});
+			});
+
+			Log.debug('All channels:', allChannels);
+			Log.debug('Filtered channels:', filteredChannels);
+			return filteredChannels;
+		});
+	};
 
 	async calculateCapabilityWarning(channel_config, orderer, selectedPeers, channel) {
 		let all_warning_20 = false;
@@ -321,8 +446,6 @@ class JoinChannelModal extends React.Component {
 				configtxlator_url: this.props.configtxlator_url
 			};
 			let config = await OrdererRestApi.getChannelConfig(options);
-			// NOTE: Application Channel concenter case need to check
-			// if (this.props.existingMembers) {
 			let memberIds = this.props.existingMembers.map(x => x.id);
 			let peers = this.props.peer ? this.props.peer : this.props.peers;
 			peers = peers.filter(peer => !memberIds.includes(peer.id));
@@ -335,17 +458,6 @@ class JoinChannelModal extends React.Component {
 			}
 			const finalPeers = members && members.length > 0 ? peers.filter(peer => members.includes(peer.msp_id)) : peers;
 			return this.getNodeStatus(finalPeers);
-			// } else {
-			// 	let members = [];
-			// 	let orgNodes = config.channel_group.groups.Application.groups;
-			// 	let orgs = Object.keys(orgNodes);
-			// 	for (let i in orgs) {
-			// 		members.push(orgs[i]);
-			// 	}
-			// 	let selectedPeers = this.props.peer ? this.props.peer : this.props.peers;
-			// 	let peers = members && members.length > 0 ? selectedPeers.filter(peer => members.includes(peer.msp_id)) : selectedPeers;
-			// 	return this.getNodeStatus(peers);
-			// }
 		} catch (error) {
 			this.props.updateState(SCOPE, { loading: false });
 			Log.error('An error occurred when filtering peer list', error);
@@ -523,8 +635,8 @@ class JoinChannelModal extends React.Component {
 		this.checkPeerMappings(change.selectedPeers);
 	};
 
-	onChannelChange = (change, valid) => {
-		this.props.updateState(SCOPE, { disableSubmit: !valid });
+	onChannelChange = async (change, valid) => {
+		this.props.updateState(SCOPE, { disableSubmit: !valid, channel: change.selectedChannel.id, existingMembers: change.selectedChannel.peers });
 	};
 
 	toggleAnchorPeer = () => {
@@ -702,6 +814,7 @@ class JoinChannelModal extends React.Component {
 		);
 	}
 
+
 	renderSelectChannel(translate) {
 		if (this.props.hideChannelStep || this.props.isPending) {
 			return;
@@ -717,7 +830,8 @@ class JoinChannelModal extends React.Component {
 				headerLink={translate('_JOIN_CHANNEL_LINK', { DOC_PREFIX: this.props.docPrefix })}
 				headerLinkText={translate('find_out_more')}
 				title={translate('select_channel')}
-				disableSubmit={this.props.disableSubmit}
+				// disableSubmit={this.props.disableSubmit}
+				disableSubmit={!this.props.channel}
 				onNext={() => this.filterPeers()}
 			>
 				<Form
