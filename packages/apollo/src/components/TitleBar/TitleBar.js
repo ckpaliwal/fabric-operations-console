@@ -15,7 +15,7 @@
  */
 import { ChevronDown, Help, NotificationFilled } from '@carbon/icons-react/es';
 // @carbon/icons-react
-import { Tag } from 'carbon-components-react';
+import { Tag } from "@carbon/react";
 import {
 	Header,
 	HeaderGlobalAction,

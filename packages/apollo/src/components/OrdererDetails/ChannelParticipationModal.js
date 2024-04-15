@@ -15,7 +15,7 @@
 */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { SkeletonPlaceholder } from 'carbon-components-react';
+import { SkeletonPlaceholder } from "@carbon/react";
 import { withLocalize } from 'react-localize-redux';
 import { connect } from 'react-redux';
 import Helper from '../../utils/helper';

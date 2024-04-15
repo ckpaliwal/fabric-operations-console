@@ -16,7 +16,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Tooltip, TooltipDefinition } from 'carbon-components-react';
+import { Tooltip, TooltipDefinition } from "@carbon/react";
 import Information from '@carbon/icons-react/es/Information';
 
 const BlockchainTooltip = ({

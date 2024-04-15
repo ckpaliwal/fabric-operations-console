@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { Button, Dropdown, InlineLoading, MultiSelect, RadioButton, SelectableTile, SkeletonText, TextArea, TextInput } from 'carbon-components-react';
+import { Button, Dropdown, InlineLoading, MultiSelect, RadioButton, SelectableTile, SkeletonText, TextArea, TextInput } from "@carbon/react";
 import DropdownSkeleton from 'carbon-components-react/lib/components/Dropdown/Dropdown.Skeleton';
 import _ from 'lodash';
 import PropTypes from 'prop-types';

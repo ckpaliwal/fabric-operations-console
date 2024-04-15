@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 import { Add, Upload } from '@carbon/icons-react/lib';
-import { Checkbox, RadioTile, TileGroup } from 'carbon-components-react';
+import { Checkbox, RadioTile, TileGroup } from "@carbon/react";
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';

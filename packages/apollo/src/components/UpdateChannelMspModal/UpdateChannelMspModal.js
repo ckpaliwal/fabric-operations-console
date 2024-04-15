@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 import { WarningFilled } from '@carbon/icons-react/es';
-import { Checkbox } from 'carbon-components-react';
+import { Checkbox } from "@carbon/react";
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';

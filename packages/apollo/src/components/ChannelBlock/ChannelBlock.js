@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 import _ from 'lodash';
-import { SkeletonPlaceholder } from 'carbon-components-react';
+import { SkeletonPlaceholder } from "@carbon/react";
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { withLocalize } from 'react-localize-redux';

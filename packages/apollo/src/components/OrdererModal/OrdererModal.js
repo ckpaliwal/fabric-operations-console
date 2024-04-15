@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { Button, CodeSnippet, Loading, SkeletonText, Toggle, ToggleSmall, Checkbox } from 'carbon-components-react';
+import { Button, CodeSnippet, Loading, SkeletonText, Toggle, ToggleSmall, Checkbox } from "@carbon/react";
 import _ from 'lodash';
 import parse from 'parse-duration';
 import PropTypes from 'prop-types';

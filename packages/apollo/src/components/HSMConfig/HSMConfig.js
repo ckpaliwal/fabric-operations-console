@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 
-import { ToggleSmall } from 'carbon-components-react';
+import { ToggleSmall } from "@carbon/react";
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { withLocalize } from 'react-localize-redux';

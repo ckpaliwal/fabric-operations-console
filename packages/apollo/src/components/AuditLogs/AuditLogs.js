@@ -19,7 +19,7 @@ import React, { Component } from 'react';
 import { withLocalize } from 'react-localize-redux';
 import { connect } from 'react-redux';
 import { showBreadcrumb, updateState } from '../../redux/commonActions';
-import { SkeletonText } from 'carbon-components-react';
+import { SkeletonText } from "@carbon/react";
 import Helper from '../../utils/helper';
 import PageContainer from '../PageContainer/PageContainer';
 //import Logger from '../Log/Logger';
@@ -31,7 +31,7 @@ import SidePanel from '../SidePanel/SidePanel';
 import Clipboard from '../../utils/clipboard';
 import SVGs from '../Svgs/Svgs';
 import BlockchainTooltip from '../BlockchainTooltip/BlockchainTooltip';
-import { Checkbox } from 'carbon-components-react';
+import { Checkbox } from "@carbon/react";
 import ActionsHelper from '../../utils/actionsHelper';
 
 const SCOPE = 'AuditLogs';

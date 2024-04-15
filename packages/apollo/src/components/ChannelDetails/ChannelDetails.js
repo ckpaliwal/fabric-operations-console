@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { InlineNotification, Tab, Tabs } from 'carbon-components-react';
+import { InlineNotification, Tab, Tabs } from "@carbon/react";
 import SkeletonPlaceholder from 'carbon-components-react/lib/components/SkeletonPlaceholder';
 import _ from 'lodash';
 import PropTypes from 'prop-types';

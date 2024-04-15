@@ -17,7 +17,7 @@ import Download from '@carbon/icons-react/lib/Download';
 import Settings from '@carbon/icons-react/lib/Settings';
 import Restart from '@carbon/icons-react/lib/Restart';
 import TrashCan from '@carbon/icons-react/lib/TrashCan';
-import { Button, SkeletonPlaceholder, SkeletonText } from 'carbon-components-react';
+import { Button, SkeletonPlaceholder, SkeletonText } from "@carbon/react";
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withLocalize } from 'react-localize-redux';

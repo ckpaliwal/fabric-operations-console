@@ -6,6 +6,7 @@
 		"@carbon/elements": "^10.12.0",
 		"@carbon/icons": "^10.11.0",
 		"@carbon/icons-react": "^11.39.0",
+		"@carbon/react": "~1.0.0",
 		"@material-ui/core": "^4.12.4",
 		"async": "^3.2.0",
 		"backoff": "^2.5.0",

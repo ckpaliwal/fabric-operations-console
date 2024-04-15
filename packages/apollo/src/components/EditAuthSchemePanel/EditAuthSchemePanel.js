@@ -24,7 +24,7 @@ import Form from '../Form/Form';
 //import Logger from '../Log/Logger';
 import Wizard from '../Wizard/Wizard';
 import WizardStep from '../WizardStep/WizardStep';
-import { ToggleSmall } from 'carbon-components-react';
+import { ToggleSmall } from "@carbon/react";
 import SidePanelWarning from '../SidePanelWarning/SidePanelWarning';
 import * as constants from '../../utils/constants';
 import BlockchainTooltip from '../BlockchainTooltip/BlockchainTooltip';

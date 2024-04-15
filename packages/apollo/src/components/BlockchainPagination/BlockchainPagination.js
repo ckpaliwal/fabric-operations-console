@@ -16,7 +16,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pagination } from 'carbon-components-react';
+import { Pagination } from "@carbon/react";
 
 const BlockchainPagination = ({
 	id,

@@ -18,7 +18,7 @@ import React from 'react';
 import { withLocalize } from 'react-localize-redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, SkeletonText } from 'carbon-components-react';
+import { Breadcrumb, BreadcrumbItem, SkeletonText } from "@carbon/react";
 import { updateState } from '../../redux/commonActions';
 
 const SCOPE = 'breadcrumb';

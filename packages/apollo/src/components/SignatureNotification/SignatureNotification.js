@@ -14,12 +14,12 @@
  * limitations under the License.
 */
 import React, { Component } from 'react';
-import { Button } from 'carbon-components-react';
+import { Button } from "@carbon/react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withLocalize } from 'react-localize-redux';
 import SVGs from '../Svgs/Svgs';
-import { Checkbox } from 'carbon-components-react';
+import { Checkbox } from "@carbon/react";
 import Catalog from '@carbon/icons-react/lib/Catalog';
 import Helper from '../../utils/helper';
 import { updateState } from '../../redux/commonActions';

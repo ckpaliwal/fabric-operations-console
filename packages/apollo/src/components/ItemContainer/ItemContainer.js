@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 import { Table as TableIcon } from '@carbon/icons-react/es';
-import { Checkbox, Button, DataTable } from 'carbon-components-react';
+import { Checkbox, Button, DataTable } from "@carbon/react";
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';

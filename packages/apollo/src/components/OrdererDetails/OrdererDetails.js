@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Button, CodeSnippet, SkeletonText, Tab, Tabs } from 'carbon-components-react';
+import { Button, CodeSnippet, SkeletonText, Tab, Tabs } from "@carbon/react";
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';

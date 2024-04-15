@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { CodeSnippet, SkeletonText, ToggleSmall } from 'carbon-components-react';
+import { CodeSnippet, SkeletonText, ToggleSmall } from "@carbon/react";
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -41,7 +41,7 @@ import SidePanelError from '../SidePanelError/SidePanelError';
 import TranslateLink from '../TranslateLink/TranslateLink';
 import Wizard from '../Wizard/Wizard';
 import WizardStep from '../WizardStep/WizardStep';
-import { Checkbox } from 'carbon-components-react';
+import { Checkbox } from "@carbon/react";
 
 const SCOPE = 'peerModal';
 const Log = new Logger(SCOPE);

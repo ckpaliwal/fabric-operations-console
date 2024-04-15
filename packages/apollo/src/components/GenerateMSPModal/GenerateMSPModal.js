@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { TrashCan } from '@carbon/icons-react/lib';
-import { Button, CodeSnippet, ContentSwitcher, InlineLoading, Switch } from 'carbon-components-react';
+import { Button, CodeSnippet, ContentSwitcher, InlineLoading, Switch } from "@carbon/react";
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';

@@ -18,7 +18,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { withLocalize } from 'react-localize-redux';
-import { ToastNotification, InlineLoading } from 'carbon-components-react';
+import { ToastNotification, InlineLoading } from "@carbon/react";
 import { updateState } from '../../redux/commonActions';
 
 const SCOPE = 'notifications';

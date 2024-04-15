@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 import _ from 'lodash';
-import { InlineNotification } from 'carbon-components-react';
+import { InlineNotification } from "@carbon/react";
 import PropTypes from 'prop-types';
 import React from 'react';
 import Helper from '../../utils/helper';

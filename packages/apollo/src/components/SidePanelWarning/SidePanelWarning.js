@@ -15,7 +15,7 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InlineNotification } from 'carbon-components-react';
+import { InlineNotification } from "@carbon/react";
 import { withLocalize } from 'react-localize-redux';
 
 const SidePanelWarning = props => {

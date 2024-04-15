@@ -19,7 +19,7 @@ import { withLocalize } from 'react-localize-redux';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import TitleBar from '../TitleBar/TitleBar';
-import { Button, Loading } from 'carbon-components-react';
+import { Button, Loading } from "@carbon/react";
 import { updateState } from '../../redux/commonActions';
 import Helper from '../../utils/helper';
 import UserSettingsRestApi from '../../rest/UserSettingsRestApi';
