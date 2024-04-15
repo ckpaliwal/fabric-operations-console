@@ -37,7 +37,7 @@ import PageContainer from '../PageContainer/PageContainer';
 import PageHeader from '../PageHeader/PageHeader';
 import SVGs from '../Svgs/Svgs';
 import ConfigBlockApi from '../../rest/ConfigBlockApi';
-import { TrashCan20 } from '@carbon/icons-react/es';
+import { TrashCan } from '@carbon/icons-react/es';
 import JoinOSNChannelModal from '../JoinOSNChannelModal/JoinOSNChannelModal';
 import ActionsHelper from '../../utils/actionsHelper';
 
@@ -491,7 +491,7 @@ class ChannelComponent extends Component {
 							return false;
 						}}
 					>
-						<TrashCan20 />
+						<TrashCan size={20} />
 					</div>
 					}
 				</div>

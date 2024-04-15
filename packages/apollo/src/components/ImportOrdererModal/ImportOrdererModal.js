@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import Add20 from '@carbon/icons-react/lib/add/20';
-import Upload20 from '@carbon/icons-react/lib/upload/20';
+import { Add, Upload } from '@carbon/icons-react/lib';
 import { Checkbox, Loading, RadioTile, TileGroup, ToggleSmall } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -510,7 +509,9 @@ class ImportOrdererModal extends React.Component {
 						disabled={!ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags)}
 					>
 						<p>{translate(this.props.raftParent ? 'create_orderer_node' : 'create_orderer')}</p>
-						<Add20 className="ibp-fill-color ibp-import-node-add-icon" />
+						<Add size={20}
+							className="ibp-fill-color ibp-import-node-add-icon"
+						/>
 					</RadioTile>
 
 					<RadioTile value={constants.IMPORTING}
@@ -519,7 +520,9 @@ class ImportOrdererModal extends React.Component {
 						disabled={!ActionsHelper.canImportComponent(this.props.userInfo, this.props.feature_flags)}
 					>
 						<p>{translate(this.props.raftParent ? 'import_orderer_node' : 'import_orderer')}</p>
-						<Upload20 className="ibp-fill-color ibp-import-node-add-icon" />
+						<Upload size={20}
+							className="ibp-fill-color ibp-import-node-add-icon"
+						/>
 					</RadioTile>
 				</TileGroup>
 			</WizardStep>

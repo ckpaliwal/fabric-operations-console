@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { WarningFilled16 } from '@carbon/icons-react/es';
+import { WarningFilled } from '@carbon/icons-react/es';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -189,7 +189,9 @@ class ChannelChaincode extends Component {
 			<>
 				<div className="ibp-channel-chaincode-version">{data.version}</div>
 				<div className="ibp-channel-chaincode-status">
-					{data.show_warning && <WarningFilled16 className="ibp--item-location-icon ibp-item-location-icon-certificate-warning" />}
+					{data.show_warning && <WarningFilled size={16}
+						className="ibp--item-location-icon ibp-item-location-icon-certificate-warning"
+					/>}
 					{this.props.translate(status)}
 				</div>
 			</>

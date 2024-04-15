@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 import { withLocalize } from 'react-localize-redux';
 import SVGs from '../Svgs/Svgs';
 import { Checkbox } from 'carbon-components-react';
-import Catalog20 from '@carbon/icons-react/lib/catalog/20';
+import Catalog from '@carbon/icons-react/lib/Catalog';
 import Helper from '../../utils/helper';
 import { updateState } from '../../redux/commonActions';
 
@@ -170,7 +170,7 @@ class SignatureNotification extends Component {
 									className="ibp-signature-request-audit-button"
 									kind="secondary"
 									size="small"
-									renderIcon={Catalog20}
+									renderIcon={<Catalog size={20} />}
 									iconDescription={translate('audit_list')}
 									tooltipPosition="left"
 									tooltipAlignment="center"

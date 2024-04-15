@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import Add20 from '@carbon/icons-react/lib/add/20';
-import Upload20 from '@carbon/icons-react/lib/upload/20';
+import { Add, Upload } from '@carbon/icons-react/lib';
 import { Checkbox, RadioTile, TileGroup } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -464,7 +463,7 @@ class ImportPeerModal extends React.Component {
 						disabled={!ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags)}
 					>
 						<p>{translate('create_peer')}</p>
-						<Add20 className="ibp-fill-color ibp-import-node-add-icon" />
+						<Add size={20} className="ibp-fill-color ibp-import-node-add-icon" />
 					</RadioTile>
 
 					<RadioTile value={constants.IMPORTING}
@@ -473,7 +472,7 @@ class ImportPeerModal extends React.Component {
 						disabled={!ActionsHelper.canImportComponent(this.props.userInfo, this.props.feature_flags)}
 					>
 						<p>{translate('import_peer')}</p>
-						<Upload20 className="ibp-fill-color ibp-import-node-add-icon" />
+						<Upload size={20} className="ibp-fill-color ibp-import-node-add-icon" />
 					</RadioTile>
 
 				</TileGroup>

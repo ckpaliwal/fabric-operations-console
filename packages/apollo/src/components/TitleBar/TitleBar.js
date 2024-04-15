@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ChevronDown16, Help20, NotificationFilled20 } from '@carbon/icons-react/es';
+import { ChevronDown, Help, NotificationFilled } from '@carbon/icons-react/es';
+// @carbon/icons-react
 import { Tag } from 'carbon-components-react';
 import {
 	Header,
@@ -208,7 +209,9 @@ class TitleBar extends Component {
 									id="ibp-get-started-menu-button"
 								>
 									{translate('get_started')}
-									<ChevronDown16 className={`ibp-getting-started-button-icon ${this.props.showWelcomeBanner ? 'ibp-getting-started-button-icon-open' : ''}`} />
+									<ChevronDown size={16}
+										className={`ibp-getting-started-button-icon ${this.props.showWelcomeBanner ? 'ibp-getting-started-button-icon-open' : ''}`}
+									/>
 								</HeaderMenuItem>
 								<HeaderMenuItem
 									onKeyPress={event => this.goToDocs(event, translate, 'keypress')}
@@ -234,7 +237,7 @@ class TitleBar extends Component {
 								<HeaderGlobalAction aria-label={translate('help')}
 									onClick={() => this.props.history.push('/support')}
 								>
-									<Help20 />
+									<Help size={20} />
 								</HeaderGlobalAction>
 								{this.props.logged && (
 									<HeaderGlobalAction
@@ -245,7 +248,7 @@ class TitleBar extends Component {
 									>
 										{needsAttention ? (
 											<div className="ibp-pending-notifications-container">
-												<NotificationFilled20 className="ibp-signature-header-icon"
+												<NotificationFilled size={20} className="ibp-signature-header-icon"
 													title={translate('notifications')}
 												/>
 												<Tag

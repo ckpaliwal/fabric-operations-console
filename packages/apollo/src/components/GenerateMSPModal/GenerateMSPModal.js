@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import TrashCan20 from '@carbon/icons-react/lib/trash-can/20';
+import { TrashCan } from '@carbon/icons-react/lib';
 import { Button, CodeSnippet, ContentSwitcher, InlineLoading, Switch } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -795,7 +795,7 @@ class GenerateMSPModal extends Component {
 									<Button
 										hasIconOnly
 										type="button"
-										renderIcon={TrashCan20}
+										renderIcon={<TrashCan size={20} />}
 										kind="secondary"
 										id={'ibp-remove-root-cert-' + i}
 										iconDescription={translate('remove_cert')}
@@ -847,7 +847,7 @@ class GenerateMSPModal extends Component {
 									<Button
 										hasIconOnly
 										type="button"
-										renderIcon={TrashCan20}
+										renderIcon={<TrashCan size={20} />}
 										kind="secondary"
 										id={'ibp-remove-tls-root-cert-' + i}
 										className="ibp-msp-remove"
@@ -1075,7 +1075,7 @@ class GenerateMSPModal extends Component {
 											<Button
 												hasIconOnly
 												type="button"
-												renderIcon={TrashCan20}
+												renderIcon={<TrashCan size={20} />}
 												kind="secondary"
 												id={'ibp-remove-admin-' + i}
 												iconDescription={translate('remove_cert')}

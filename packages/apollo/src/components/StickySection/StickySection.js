@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import Download20 from '@carbon/icons-react/lib/download/20';
-import Settings20 from '@carbon/icons-react/lib/settings/20';
-import Restart20 from '@carbon/icons-react/lib/restart/20';
-import Trash20 from '@carbon/icons-react/lib/trash-can/20';
+import Download from '@carbon/icons-react/lib/Download';
+import Settings from '@carbon/icons-react/lib/Settings';
+import Restart from '@carbon/icons-react/lib/Restart';
+import TrashCan from '@carbon/icons-react/lib/TrashCan';
 import { Button, SkeletonPlaceholder, SkeletonText } from 'carbon-components-react';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -177,7 +177,7 @@ const StickySection = ({
 							className="ibp-detail-page-icon-button"
 							kind="secondary"
 							size="small"
-							renderIcon={Settings20}
+							renderIcon={<Settings size={20} />}
 							iconDescription={translate('comp_settings_desc')}
 							tooltipPosition="bottom"
 							tooltipAlignment="center"
@@ -200,7 +200,7 @@ const StickySection = ({
 								className="ibp-detail-page-icon-button"
 								kind="secondary"
 								size="small"
-								renderIcon={Restart20}
+								renderIcon={<Restart size={20} />}
 								iconDescription={translate('refresh_certs')}
 								tooltipPosition="bottom"
 								tooltipAlignment="center"
@@ -223,7 +223,7 @@ const StickySection = ({
 								className="ibp-detail-page-icon-button"
 								kind="secondary"
 								size="small"
-								renderIcon={Download20}
+								renderIcon={<Download size={20} />}
 								iconDescription={translate('comp_export_desc')}
 								tooltipPosition="bottom"
 								tooltipAlignment="center"
@@ -246,7 +246,7 @@ const StickySection = ({
 								className="ibp-detail-page-icon-button"
 								kind="secondary"
 								size="small"
-								renderIcon={Trash20}
+								renderIcon={<TrashCan size={20} />}
 								iconDescription={translate('delete')}
 								tooltipPosition="bottom"
 								tooltipAlignment="center"

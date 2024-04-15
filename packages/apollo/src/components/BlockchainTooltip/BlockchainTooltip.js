@@ -17,7 +17,7 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tooltip, TooltipDefinition } from 'carbon-components-react';
-import Information from '@carbon/icons-react/es/information/16';
+import Information from '@carbon/icons-react/es/Information';
 
 const BlockchainTooltip = ({
 	customIcon,
@@ -83,7 +83,7 @@ const BlockchainTooltip = ({
 							  }
 					}
 					showIcon={!noIcon}
-					renderIcon={icon ? icon : Information}
+					renderIcon={icon ? icon : <Information size={16} />}
 				>
 					<p>{children}</p>
 				</Tooltip>

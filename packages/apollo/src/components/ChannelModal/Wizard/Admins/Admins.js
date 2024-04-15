@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 
-import TrashCan20 from '@carbon/icons-react/lib/trash-can/20';
+import {TrashCan} from '@carbon/icons-react/lib';
 import { Button } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -171,7 +171,7 @@ class Admins extends Component {
 								<Button
 									hasIconOnly
 									type="button"
-									renderIcon={TrashCan20}
+									renderIcon={<TrashCan size={20} />}
 									kind="secondary"
 									id={'ibp-remove-admin-' + i}
 									iconDescription={translate('remove_orderer_admin')}

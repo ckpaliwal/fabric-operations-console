@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { Table16 } from '@carbon/icons-react/es';
+import { Table as TableIcon } from '@carbon/icons-react/es';
 import { Checkbox, Button, DataTable } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -192,7 +192,7 @@ class ItemContainer extends Component {
 											title={'Toggle grid view'}
 										/>
 									) : (
-										<Table16 aria-label={'Toggle list view'}
+										<TableIcon size={16} aria-label={'Toggle list view'}
 											className="ibp--svg-white-fill"
 										/>
 									)}
