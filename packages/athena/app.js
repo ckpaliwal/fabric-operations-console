@@ -871,6 +871,9 @@ function setup_pillow_talk() {
 */
 function make_rate_limiter(log_msg, max_req) {
 	logger.debug(log_msg, 'functional code is commented');
+	return (req, res, next) => {
+		return next();
+	};
 	// return new RateLimit({
 	// 	windowMs: 1 * 60 * 1000, 						// xx minutes
 	// 	max: max_req, 									// limit each (IP + browser) to xxx requests per time windowMs
