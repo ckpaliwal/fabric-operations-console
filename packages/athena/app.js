@@ -315,6 +315,7 @@ function setup_routes_and_start() {
 
 	// function that serves our react app (this is apollo)
 	function serve_index(req, res, next) {
+		logger.debug('serve index.html');
 		res.setHeader('Cache-Control', 'public, max-age=' + cache_max_age_secs);
 		res.sendFile(tools.path.join(__dirname, '..', 'apollo', 'build', 'index.html'));
 	}
@@ -382,6 +383,7 @@ function setup_routes_and_start() {
 	app.use(tools.express.static(__dirname + '/../stitch/dist', { maxAge: cache_max_age_str })); 						// serve stitch's directory
 	app.use(tools.express.static(__dirname + '/public', { maxAge: cache_max_age_str })); 							// setup athena's static directory
 	app.get('/favicon.ico', (req, res) => {
+		logger.debug('fav icon call received!');
 		res.setHeader('Cache-Control', 'public, max-age=' + cache_max_age_secs);
 		res.sendFile(tools.path.join(__dirname, '..', 'apollo', 'build', 'favicon.ico'));
 	});
@@ -472,6 +474,7 @@ function setup_routes_and_start() {
 	// Most routes here (routes that need a session/user context)
 	//---------------------------------------------------------------------------------------------
 	app.get(['/', '/index.html'], tools.middleware.public, (req, res, next) => {	// serve apollo's output file
+		logger.debug('GET / or index.html Request received!');
 		return serve_index(req, res, next);
 	});
 	app.get(['/package-lock.json', '/package.json', '/npm_ls_prod.txt'], tools.middleware.verify_settings_action_session, (req, res) => {
@@ -867,32 +870,33 @@ function setup_pillow_talk() {
 	max: 100,		 		// max requests per minute,
 */
 function make_rate_limiter(log_msg, max_req) {
-	return new RateLimit({
-		windowMs: 1 * 60 * 1000, 						// xx minutes
-		max: max_req, 									// limit each (IP + browser) to xxx requests per time windowMs
-		onLimitReached: function (req, res, opts) {
-			const ip = tools.misc.format_ip(req.ip, true);
-			logger.warn(log_msg, '- initial limit breach. ip hash:', ip, 'at:', req.rateLimit.current);
-		},
-		keyGenerator: function (req) {
-			const ip = tools.misc.format_ip(req.ip, false);
-			return ip + req.headers['user-agent'];
-		},
-		handler: (req, res, opts) => {
-			const ret = {
-				error: log_msg + ' - too many requests, try again later',
-				rate_limit: max_req + '/min',
-			};
-			if (req.url.indexOf('/ak/') === 0) {		// add some tips to ak apis responses
-				ret.tips = [
-					'monitor the header "X-RateLimit-Remaining" for your current rate',
-					'check the header "X-RateLimit-Reset" for when to resume',
-				];
-			}
-			logger.error(log_msg, '- limit: ' + req.rateLimit.limit + '/min, at:', req.rateLimit.current + '/min');
-			res.status(429).send(ret);
-		},
-	});
+	logger.debug(log_msg, 'functional code is commented');
+	// return new RateLimit({
+	// 	windowMs: 1 * 60 * 1000, 						// xx minutes
+	// 	max: max_req, 									// limit each (IP + browser) to xxx requests per time windowMs
+	// 	onLimitReached: function (req, res, opts) {
+	// 		const ip = tools.misc.format_ip(req.ip, true);
+	// 		logger.warn(log_msg, '- initial limit breach. ip hash:', ip, 'at:', req.rateLimit.current);
+	// 	},
+	// 	keyGenerator: function (req) {
+	// 		const ip = tools.misc.format_ip(req.ip, false);
+	// 		return ip + req.headers['user-agent'];
+	// 	},
+	// 	handler: (req, res, opts) => {
+	// 		const ret = {
+	// 			error: log_msg + ' - too many requests, try again later',
+	// 			rate_limit: max_req + '/min',
+	// 		};
+	// 		if (req.url.indexOf('/ak/') === 0) {		// add some tips to ak apis responses
+	// 			ret.tips = [
+	// 				'monitor the header "X-RateLimit-Remaining" for your current rate',
+	// 				'check the header "X-RateLimit-Reset" for when to resume',
+	// 			];
+	// 		}
+	// 		logger.error(log_msg, '- limit: ' + req.rateLimit.limit + '/min, at:', req.rateLimit.current + '/min');
+	// 		res.status(429).send(ret);
+	// 	},
+	// });
 }
 
 //---------------------
