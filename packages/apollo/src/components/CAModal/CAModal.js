@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { Checkbox, CodeSnippet, ContentSwitcher, SkeletonText, Switch } from "@carbon/react";
+import { Checkbox, CodeSnippet, ContentSwitcher, SkeletonText, Switch } from '@carbon/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';

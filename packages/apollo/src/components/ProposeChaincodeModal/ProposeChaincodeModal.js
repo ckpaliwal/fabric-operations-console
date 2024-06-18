@@ -12,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
-import { ContentSwitcher, Switch, TextArea, TextInput, Toggle } from "@carbon/react";
+ */
+import { ContentSwitcher, Switch, TextArea, TextInput, Toggle } from '@carbon/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -53,7 +53,7 @@ class ProposeChaincodeModal extends React.Component {
 			pkg_id: null,
 			pkg_version: null,
 			parsing: false,
-			init_required: false,							// 2024/02/22 - this is now always false, we do not want customers to set init_required as true
+			init_required: false, // 2024/02/22 - this is now always false, we do not want customers to set init_required as true
 			install_all_peers: true,
 			selected_peers: [...this.props.peerList],
 			policy: 'explicit',
@@ -117,7 +117,7 @@ class ProposeChaincodeModal extends React.Component {
 		const existing_proposals = {};
 		const requests = await SignatureRestApi.getAllRequests();
 		if (requests) {
-			requests.forEach(request => {
+			requests.forEach((request) => {
 				if (request.ccd && request.status === 'open' && request.channel === this.props.channel.id) {
 					existing_proposals[request.ccd.chaincode_id] = {
 						...request.ccd,
@@ -162,7 +162,7 @@ class ProposeChaincodeModal extends React.Component {
 		} catch (error) {
 			console.error('unable to calculate package id (hash)', error);
 		}
-		this.props.selected_peers.forEach(peer => {
+		this.props.selected_peers.forEach((peer) => {
 			if (!this.isAlreadyInstalledOnPeer(peer)) {
 				all.push(PeerRestApi.installChaincode(peer.id, cc_pkg, true));
 			}
@@ -190,7 +190,7 @@ class ProposeChaincodeModal extends React.Component {
 		return installed;
 	}
 
-	onSubmit = async() => {
+	onSubmit = async () => {
 		const cc_pkg = await this.getSelectedChaincodePackage();
 		const package_id = await this.installChaincodePackageOnSelectedPeers(cc_pkg);
 
@@ -231,10 +231,10 @@ class ProposeChaincodeModal extends React.Component {
 		return;
 	};
 
-	getPeersForOrg = async() => {
+	getPeersForOrg = async () => {
 		const orgPeerList = [];
 		if (this.props.peerList) {
-			this.props.peerList.forEach(peer => {
+			this.props.peerList.forEach((peer) => {
 				if (peer.msp_id === this.props.propose_org.msp_id) {
 					orgPeerList.push(peer);
 				}
@@ -318,7 +318,7 @@ class ProposeChaincodeModal extends React.Component {
 					accept={['.gz', '.tgz']}
 					name="file"
 					multiple={false}
-					onChange={event => {
+					onChange={(event) => {
 						const pkg = event.target.files[0];
 						this.props.updateState(SCOPE, { pkg });
 						this.parsePackage(pkg);
@@ -344,17 +344,13 @@ class ProposeChaincodeModal extends React.Component {
 								this.props.updateState(SCOPE, { pkg: null });
 							}}
 						>
-							<SVGs type="close"
-								extendClass={{ 'ibp-pkg-delete-icon': true }}
-							/>
+							<SVGs type="close" extendClass={{ 'ibp-pkg-delete-icon': true }} />
 						</button>
 					</div>
 				)}
 				{this.props.pkg && !this.props.parsing && !this.props.pkg_id && !this.props.pkg_error && (
 					<div className="ibp-error-panel">
-						<SidePanelWarning title=""
-							subtitle="propose_parsing_error_txt"
-						/>
+						<SidePanelWarning title="" subtitle="propose_parsing_error_txt" />
 					</div>
 				)}
 			</div>
@@ -385,7 +381,7 @@ class ProposeChaincodeModal extends React.Component {
 		}
 		const existing_pkgs = [];
 		const ids = Object.keys(existing);
-		ids.forEach(id => {
+		ids.forEach((id) => {
 			let name = id;
 			let label = null;
 			let hash = null;
@@ -438,7 +434,7 @@ class ProposeChaincodeModal extends React.Component {
 								default: 'choose_a_pkg',
 							},
 						]}
-						onChange={data => {
+						onChange={(data) => {
 							let pkg_id = null;
 							let pkg_version = null;
 							if (data.pkg.label) {
@@ -480,16 +476,8 @@ class ProposeChaincodeModal extends React.Component {
 					}}
 					selectedIndex={this.props.upload_pkg ? 0 : 1}
 				>
-					<Switch kind="button"
-						id="propose-upload"
-						name="upload"
-						text={this.props.t('upload')}
-					/>
-					<Switch kind="button"
-						id="propose-existing"
-						name="existing"
-						text={this.props.t('existing_package')}
-					/>
+					<Switch kind="button" id="propose-upload" name="upload" text={this.props.t('upload')} />
+					<Switch kind="button" id="propose-existing" name="existing" text={this.props.t('existing_package')} />
 				</ContentSwitcher>
 				{this.props.upload_pkg ? this.renderUploadPackage() : this.renderExistingPackage()}
 			</WizardStep>
@@ -503,14 +491,9 @@ class ProposeChaincodeModal extends React.Component {
 			existing = this.props.existing_proposals[this.props.pkg_id];
 		}
 		return (
-			<WizardStep type="WizardStep"
-				title="chaincode_details"
-				disableSubmit={!this.props.pkg_id || !this.props.pkg_version || loading}
-			>
+			<WizardStep type="WizardStep" title="chaincode_details" disableSubmit={!this.props.pkg_id || !this.props.pkg_version || loading}>
 				<p className="ibp-modal-text">{this.props.t('propose_package_info')}</p>
-				{existing && <ImportantBox text="propose_existing_important"
-					opts={existing}
-				/>}
+				{existing && <ImportantBox text="propose_existing_important" opts={existing} />}
 				<Form
 					scope={SCOPE}
 					id={SCOPE + '-pkg-info'}
@@ -548,15 +531,9 @@ class ProposeChaincodeModal extends React.Component {
 			}
 		}
 		return (
-			<WizardStep type="WizardStep"
-				title="install_chaincode"
-				disableSubmit={disableSubmit}
-			>
+			<WizardStep type="WizardStep" title="install_chaincode" disableSubmit={disableSubmit}>
 				<p className="ibp-modal-text">{this.props.t('propose_install_desc')}</p>
-				<ImportantBox kind="informational"
-					text="propose_install_important"
-					link="propose_install_important_link"
-				/>
+				<ImportantBox kind="informational" text="propose_install_important" link="propose_install_important_link" />
 				<div className="ibp-form">
 					<div className="ibp-form-field">
 						<div>
@@ -650,10 +627,7 @@ class ProposeChaincodeModal extends React.Component {
 				],
 			},
 		];
-		return <Form scope={SCOPE}
-			id={SCOPE + '_implicit_policy'}
-			fields={fields}
-		/>;
+		return <Form scope={SCOPE} id={SCOPE + '_implicit_policy'} fields={fields} />;
 	}
 
 	renderExplicitPolicy() {
@@ -686,7 +660,7 @@ class ProposeChaincodeModal extends React.Component {
 							options,
 						},
 					]}
-					onChange={data => {
+					onChange={(data) => {
 						if (data.explicit_policy) {
 							const num = Number(this.props.explicit_specific_num);
 							if (num > data.explicit_policy.length) {
@@ -701,7 +675,7 @@ class ProposeChaincodeModal extends React.Component {
 		);
 	}
 
-	retrievePolicyFromJson = event => {
+	retrievePolicyFromJson = (event) => {
 		try {
 			let data = JSON.parse(event.target.value);
 			this.props.updateState(SCOPE, {
@@ -736,7 +710,7 @@ class ProposeChaincodeModal extends React.Component {
 							errorMsg: this.props.advanced_policy_error ? 'error_manual_policy_json' : undefined,
 						},
 					]}
-					onChange={data => {
+					onChange={(data) => {
 						let advanced_policy_error = false;
 						if (data.advanced_policy) {
 							// Do we need to do validation?
@@ -746,9 +720,7 @@ class ProposeChaincodeModal extends React.Component {
 						});
 					}}
 				/>
-				<TranslateLink text="manual_policy_reference"
-					className="ibp-propose-advanced-policy-learn-more"
-				/>
+				<TranslateLink text="manual_policy_reference" className="ibp-propose-advanced-policy-learn-more" />
 			</div>
 		);
 	}
@@ -768,19 +740,19 @@ class ProposeChaincodeModal extends React.Component {
 	getPolicyText() {
 		const list = [];
 		if (this.props.explicit_policy && this.props.explicit_policy.length) {
-			this.props.explicit_policy.forEach(org => {
+			this.props.explicit_policy.forEach((org) => {
 				if (org.node_ou) {
-					list.push('\'' + org.id + '.peer\'');
+					list.push("'" + org.id + ".peer'");
 				} else {
-					list.push('\'' + org.id + '.member\'');
+					list.push("'" + org.id + ".member'");
 				}
 			});
 		} else {
-			this.props.members.forEach(org => {
+			this.props.members.forEach((org) => {
 				if (org.node_ou) {
-					list.push('\'' + org.id + '.peer\'');
+					list.push("'" + org.id + ".peer'");
 				} else {
-					list.push('\'' + org.id + '.member\'');
+					list.push("'" + org.id + ".member'");
 				}
 			});
 		}
@@ -803,15 +775,9 @@ class ProposeChaincodeModal extends React.Component {
 		const policies = [/*'implicit',*/ 'explicit', 'advanced'];
 		let policy_index = this.props.policy ? policies.indexOf(this.props.policy) : 0;
 		return (
-			<WizardStep type="WizardStep"
-				title="propose_policy"
-				disableSubmit={!this.isPolicyValid()}
-			>
+			<WizardStep type="WizardStep" title="propose_policy" disableSubmit={!this.isPolicyValid()}>
 				<p className="ibp-modal-text">{this.props.t('propose_policy_desc')}</p>
-				<ImportantBox kind="informational"
-					text="propose_policy_important"
-					link="propose_policy_important_link"
-				/>
+				<ImportantBox kind="informational" text="propose_policy_important" link="propose_policy_important_link" />
 				<div className="ibp-form">
 					<div className="ibp-form-field">
 						<div>
@@ -837,18 +803,13 @@ class ProposeChaincodeModal extends React.Component {
 						<ContentSwitcher
 							className="ibp-policy-switch"
 							selectedIndex={policy_index}
-							onChange={evt => {
+							onChange={(evt) => {
 								this.getPolicyText();
 								this.props.updateState(SCOPE, { policy: evt.name });
 							}}
 						>
-							{policies.map(policy => {
-								return <Switch kind="button"
-									key={policy}
-									id={policy}
-									name={policy}
-									text={this.props.t(policy)}
-								/>;
+							{policies.map((policy) => {
+								return <Switch kind="button" key={policy} id={policy} name={policy} text={this.props.t(policy)} />;
 							})}
 						</ContentSwitcher>
 						{this.renderImplicitPolicy()}
@@ -862,10 +823,7 @@ class ProposeChaincodeModal extends React.Component {
 
 	renderPrivateData() {
 		return (
-			<WizardStep type="WizardStep"
-				title="propose_private_data"
-				disableSubmit={this.props.private_data_filename && !this.props.private_data_json}
-			>
+			<WizardStep type="WizardStep" title="propose_private_data" disableSubmit={this.props.private_data_filename && !this.props.private_data_json}>
 				<p className="ibp-modal-text">{this.props.t('propose_private_data_desc')}</p>
 				<Form
 					scope={SCOPE}
@@ -904,7 +862,7 @@ class ProposeChaincodeModal extends React.Component {
 		}
 		if (this.props.policy === 'explicit') {
 			let orgs = [];
-			this.props.explicit_policy.forEach(org => {
+			this.props.explicit_policy.forEach((org) => {
 				orgs.push(org.id);
 			});
 			if (orgs.length > 1) {
@@ -940,7 +898,7 @@ class ProposeChaincodeModal extends React.Component {
 
 		const send_to = [];
 		if (this.props.members) {
-			this.props.members.forEach(member => {
+			this.props.members.forEach((member) => {
 				if (this.props.propose_org && this.props.propose_org.msp_id !== member.id) {
 					send_to.push(member.id);
 				}
@@ -948,9 +906,7 @@ class ProposeChaincodeModal extends React.Component {
 		}
 
 		return (
-			<WizardStep type="WizardStep"
-				title="summary"
-			>
+			<WizardStep type="WizardStep" title="summary">
 				<div className="ibp-propose-chaincode-summary">
 					{Helper.renderFieldSummary(this.props.t, this.props, 'propose_org', 'propose_org.display_name')}
 					{Helper.renderFieldSummary(this.props.t, this.props, 'propose_identity', 'propose_identity.name')}
@@ -981,11 +937,9 @@ class ProposeChaincodeModal extends React.Component {
 										<div className="ibp-highlight-msp">{send_to.join(', ')}</div>
 									</>
 								)}
-								<Trans>{this.props.t('this_proposal')}
-								{/* , { */}
-									{/* org: this.props.propose_org ? <span className="ibp-highlight-msp">{this.props.propose_org.msp_id}</span> : null, */}
-								{/* })} */}
-								{this.props.propose_org ? <span className="ibp-highlight-msp">{this.props.propose_org.msp_id}</span>: null}
+								<Trans>
+									{this.props.t('this_proposal')}
+									{this.props.propose_org ? <span className="ibp-highlight-msp">{this.props.propose_org.msp_id}</span> : null}
 								</Trans>
 							</>
 						}
@@ -997,11 +951,7 @@ class ProposeChaincodeModal extends React.Component {
 
 	render() {
 		return (
-			<Wizard onClose={this.props.onClose}
-				onSubmit={this.onSubmit}
-				showSubmitSpinner={this.props.parsing}
-				submitButtonLabel={this.props.t('propose')}
-			>
+			<Wizard onClose={this.props.onClose} onSubmit={this.onSubmit} showSubmitSpinner={this.props.parsing} submitButtonLabel={this.props.t('propose')}>
 				{this.renderSelectOrg()}
 				{this.renderSelectPackage()}
 				{this.renderInstall()}
@@ -1057,7 +1007,7 @@ ProposeChaincodeModal.propTypes = {
 };
 
 export default connect(
-	state => {
+	(state) => {
 		let newProps = Helper.mapStateToProps(state[SCOPE], dataProps);
 		newProps['configtxlator_url'] = state['settings']['configtxlator_url'];
 		return newProps;

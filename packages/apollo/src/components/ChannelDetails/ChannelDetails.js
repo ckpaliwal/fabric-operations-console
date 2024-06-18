@@ -12,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
-import { InlineNotification, Tab, Tabs, SkeletonPlaceholder, TabList, TabPanels, TabPanel, Row } from "@carbon/react";
+ */
+import { InlineNotification, Tab, Tabs, SkeletonPlaceholder, TabList, TabPanels, TabPanel, Row } from '@carbon/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -138,15 +138,15 @@ class ChannelDetails extends Component {
 	getChannel(cb) {
 		const peerId = this.props.match.params.peerId || this.channel.peers[0].id;
 		ChannelApi.getChannel(this.props.match.params.channelId, peerId)
-			.then(channel => {
+			.then((channel) => {
 				this.channel = channel;
 				PeerRestApi.getChannelInfoFromPeer(peerId, channel.id)
-					.then(resp => {
+					.then((resp) => {
 						this.channel.height = resp.height;
 						this.getBlocksForPage(0, 10);
 						let peers = [];
 						if (this.channel && this.channel.peers) {
-							this.channel.peers.forEach(peer => {
+							this.channel.peers.forEach((peer) => {
 								peer.type = 'peer';
 								peers.push(peer);
 								//peer.certificateWarning = Helper.getLongestExpiry(peer.admin_certs);
@@ -158,12 +158,12 @@ class ChannelDetails extends Component {
 						}
 						cb();
 					})
-					.catch(error => {
+					.catch((error) => {
 						channel.height = null;
 						cb();
 					});
 			})
-			.catch(error => {
+			.catch((error) => {
 				this.props.updateState(SCOPE, { loading: false });
 				this.props.showError(
 					'error_channel_not_found',
@@ -178,7 +178,7 @@ class ChannelDetails extends Component {
 	getHighestVersionFromCapabilities(capabilities_map) {
 		const versions = Object.keys(capabilities_map);
 		let highest = '';
-		versions.forEach(version => {
+		versions.forEach((version) => {
 			const revised = version.replace(/_/g, '.');
 			if (highest) {
 				try {
@@ -195,12 +195,12 @@ class ChannelDetails extends Component {
 		return highest;
 	}
 
-	getChannelDetails = cb => {
+	getChannelDetails = (cb) => {
 		this.props.updateState(SCOPE, { anchorPeersLoading: true });
 		const peerId = this.props.match.params.peerId || this.channel.peers[0].id;
-		NodeRestApi.getNodes().then(nodes => {
+		NodeRestApi.getNodes().then((nodes) => {
 			ChannelApi.getChannelConfig(peerId, this.props.match.params.channelId)
-				.then(config_envelop => {
+				.then((config_envelop) => {
 					let config = config_envelop.config;
 					let members = [];
 					let ordererMembers = [];
@@ -299,8 +299,8 @@ class ChannelDetails extends Component {
 
 					this.acls = acls;
 					this.anchorPeers = anchorPeers;
-					nodes.forEach(node => {
-						this.anchorPeers.forEach(anchorPeer => {
+					nodes.forEach((node) => {
+						this.anchorPeers.forEach((anchorPeer) => {
 							if (node.type === 'fabric-peer' && anchorPeer.grpcwp_url.toLowerCase() === node.backend_addr.toLowerCase()) {
 								anchorPeer.display_name = node.name;
 								anchorPeer.id = node.id;
@@ -344,7 +344,7 @@ class ChannelDetails extends Component {
 					} else if (!_.isEmpty(lifecyclePolicyValue)) {
 						this.existingLifecyclePolicy.type = 'SPECIFIC';
 						this.existingLifecyclePolicy.n = _.get(lifecyclePolicyValue, 'rule.n_out_of.n', null);
-						this.existingLifecyclePolicy.members = lifecyclePolicyValue.identities_list.map(x => x.principal.msp_identifier);
+						this.existingLifecyclePolicy.members = lifecyclePolicyValue.identities_list.map((x) => x.principal.msp_identifier);
 					}
 
 					const endorsementPolicyType = _.get(config, 'channel_group.groups_map.Application.policies_map.Endorsement.policy.type', null);
@@ -356,7 +356,7 @@ class ChannelDetails extends Component {
 					} else if (!_.isEmpty(endorsementPolicyValue)) {
 						this.existingEndorsementPolicy.type = 'SPECIFIC';
 						this.existingEndorsementPolicy.n = _.get(endorsementPolicyValue, 'rule.n_out_of.n', null);
-						this.existingEndorsementPolicy.members = endorsementPolicyValue.identities_list.map(x => x.principal.msp_identifier);
+						this.existingEndorsementPolicy.members = endorsementPolicyValue.identities_list.map((x) => x.principal.msp_identifier);
 					}
 
 					this.props.updateState(SCOPE, {
@@ -366,27 +366,27 @@ class ChannelDetails extends Component {
 					});
 					return config;
 				})
-				.then(config => {
+				.then((config) => {
 					const l_orderers = ChannelApi.getOrdererAddresses(config);
 					const l_consenters = _.get(config, 'channel_group.groups_map.Orderer.values_map.ConsensusType.value.metadata.consenters', []);
 					OrdererRestApi.getOrderers(true)
-						.then(orderers => {
+						.then((orderers) => {
 							let isTLSCertMismatchFound = false;
-							l_orderers.forEach(orderer => {
-								orderers.forEach(node => {
+							l_orderers.forEach((orderer) => {
+								orderers.forEach((node) => {
 									// Also check the raft nodes within
 									let matchingRaftNode = false;
 									if (node.raft && node.raft.length > 0) {
-										matchingRaftNode = node.raft.find(x => _.toLower(x.backend_addr) === _.toLower(orderer));
+										matchingRaftNode = node.raft.find((x) => _.toLower(x.backend_addr) === _.toLower(orderer));
 									}
 									if (_.toLower(node.backend_addr) === _.toLower(orderer) || matchingRaftNode) {
-										if (!this.orderers.find(x => x.id === node.id)) {
+										if (!this.orderers.find((x) => x.id === node.id)) {
 											this.orderers.push(node);
 										}
 									}
 									let orderers = [];
 									if (this.channel && this.channel.orderers) {
-										this.channel.orderers.forEach(orderer => {
+										this.channel.orderers.forEach((orderer) => {
 											orderer.type = 'orderer';
 											//orderer.certificateWarning = Helper.getLongestExpiry(orderer.admin_certs);
 											orderers.push(orderer);
@@ -398,11 +398,11 @@ class ChannelDetails extends Component {
 									}
 								});
 							});
-							let raft_nodes = orderers ? orderers.filter(node => node.raft && node.raft.length > 0).map(node => node.raft) : [];
+							let raft_nodes = orderers ? orderers.filter((node) => node.raft && node.raft.length > 0).map((node) => node.raft) : [];
 							raft_nodes = _.flatten(raft_nodes);
-							l_consenters.forEach(orderer => {
+							l_consenters.forEach((orderer) => {
 								orderer.tls_cert_mismatch = false;
-								raft_nodes.forEach(node => {
+								raft_nodes.forEach((node) => {
 									if (_.toLower(node.backend_addr).includes(_.toLower(orderer.host) + ':' + _.toLower(orderer.port))) {
 										orderer.name = node.name;
 										orderer.display_name = node.display_name;
@@ -416,7 +416,7 @@ class ChannelDetails extends Component {
 									}
 								});
 							});
-							l_consenters.forEach(orderer => {
+							l_consenters.forEach((orderer) => {
 								if (!_.has(orderer, 'url')) {
 									orderer.url = orderer.host + ':' + orderer.port;
 								}
@@ -430,22 +430,21 @@ class ChannelDetails extends Component {
 							}
 							return isTLSCertMismatchFound;
 						})
-						.then(isTLSCertMismatchFound => {
-
+						.then((isTLSCertMismatchFound) => {
 							// Populate the orderer host url and orderer msps for the update cert flow && the remove consenter flow
 							MspRestApi.getAllMsps()
-								.then(async all_msps => {
+								.then(async (all_msps) => {
 									let msps = [];
-									all_msps.forEach(msp => {
+									all_msps.forEach((msp) => {
 										msps.push({ ...msp, display_name: msp.display_name + ' (' + msp.msp_id + ')' });
 									});
 
 									if (_.size(this.channel.orderers) > 0) {
 										const orderer_msp_ids = [];
-										this.channel.orderers.forEach(x =>
-											_.has(x, 'raft') ? x.raft.forEach(y => orderer_msp_ids.push(y.msp_id)) : orderer_msp_ids.push(x.msp_id)
+										this.channel.orderers.forEach((x) =>
+											_.has(x, 'raft') ? x.raft.forEach((y) => orderer_msp_ids.push(y.msp_id)) : orderer_msp_ids.push(x.msp_id)
 										);
-										msps = msps.filter(msp => orderer_msp_ids.includes(msp.msp_id));
+										msps = msps.filter((msp) => orderer_msp_ids.includes(msp.msp_id));
 									}
 									this.props.updateState(SCOPE, {
 										ordererMSPs: msps,
@@ -455,14 +454,14 @@ class ChannelDetails extends Component {
 									this.ordererHost = await OrdererRestApi.getOrdererURL(channelOrderer, this.consenters);
 									if (cb) cb();
 								})
-								.catch(error => {
+								.catch((error) => {
 									Log.error(error);
 									this.props.updateState(SCOPE, { ordererMSPs: [] });
 									if (cb) cb();
 								});
 						});
 				})
-				.catch(error => {
+				.catch((error) => {
 					this.acls = [];
 					this.anchorPeers = [];
 					this.props.updateState(SCOPE, { loading: false, members: [], ordererMembers: [], anchorPeersLoading: false });
@@ -499,7 +498,7 @@ class ChannelDetails extends Component {
 		return capabilities;
 	}
 
-	getRoles = policies => {
+	getRoles = (policies) => {
 		let readers = [];
 		let writers = [];
 		let admins = [];
@@ -528,13 +527,13 @@ class ChannelDetails extends Component {
 	getInstantiatedChaincode = () => {
 		const peerId = this.props.match.params.peerId || this.channel.peers[0].id;
 		ChannelApi.getInstantiatedChaincode(this.props.match.params.channelId, peerId)
-			.then(resp => {
+			.then((resp) => {
 				if (resp && resp.chaincodesList) {
 					this.chaincode = resp.chaincodesList;
 				}
 				this.props.updateState(SCOPE, { loading: false });
 			})
-			.catch(error => {
+			.catch((error) => {
 				this.props.updateState(SCOPE, { loading: false });
 				this.props.showError(
 					'error_get_instantiated',
@@ -571,13 +570,13 @@ class ChannelDetails extends Component {
 		}
 		this.props.updateState(SCOPE, { blocks: [...blocks] });
 		Promise.all(all)
-			.then(data => {
-				data.forEach(block => {
+			.then((data) => {
+				data.forEach((block) => {
 					id = Number(block.header.number);
 					const created = _.get(block, 'data.data_list[0].envelope.payload.header.channel_header.timestamp');
 					const txs = [];
 					if (block.data.data_list) {
-						block.data.data_list.forEach(tx => {
+						block.data.data_list.forEach((tx) => {
 							const tx_id = _.get(tx, 'envelope.payload.header.channel_header.tx_id');
 							if (tx_id) {
 								txs.push(tx);
@@ -597,7 +596,7 @@ class ChannelDetails extends Component {
 					tooManyRequests: false,
 				});
 			})
-			.catch(error => {
+			.catch((error) => {
 				Log.error(error);
 				this.props.updateState(SCOPE, { blocks: [...blocks] });
 				if (page !== this.lastRequestedPage) {
@@ -677,7 +676,7 @@ class ChannelDetails extends Component {
 		Helper.openJSONBlob(debug_block);
 	};
 
-	openBlock = block => {
+	openBlock = (block) => {
 		let path = '';
 		if (this.props.match.params.peerId) {
 			path = path + '/peer/' + encodeURIComponent(this.props.match.params.peerId);
@@ -723,10 +722,10 @@ class ChannelDetails extends Component {
 		return Promise.all(all);
 	}
 
-	deleteAnchorPeers = async peers => {
+	deleteAnchorPeers = async (peers) => {
 		let deleted_peers = {};
-		peers.forEach(peer => {
-			let peer_details = this.channel.peers.find(peer1 => peer1.msp_id === peer.msp_id);
+		peers.forEach((peer) => {
+			let peer_details = this.channel.peers.find((peer1) => peer1.msp_id === peer.msp_id);
 			if (peer_details) {
 				deleted_peers[peer.msp_id] = {
 					anchor_peer: { host: peer.host, port: peer.port, msp_id: peer.msp_id },
@@ -738,15 +737,15 @@ class ChannelDetails extends Component {
 		let consenterUrl;
 		if (_.has(this.channel.orderers[0], 'raft') && this.consenters) {
 			// Use the orderer node that is in the channel consenter set
-			const consenter_addresses = this.consenters.map(x => x.host + ':' + x.port);
-			const orderer = this.channel.orderers[0].raft.find(x => consenter_addresses.includes(_.toLower(x.backend_addr)));
+			const consenter_addresses = this.consenters.map((x) => x.host + ':' + x.port);
+			const orderer = this.channel.orderers[0].raft.find((x) => consenter_addresses.includes(_.toLower(x.backend_addr)));
 			consenterUrl = orderer.url2use;
 		}
 
 		try {
 			const resps = await this.updateChannelAnchorPeers(deleted_peers, consenterUrl);
 			let error = false;
-			resps.forEach(resp => {
+			resps.forEach((resp) => {
 				Log.debug('Delete anchor peer response:', resp);
 				if (resp.message !== 'ok') {
 					error = true;
@@ -773,11 +772,7 @@ class ChannelDetails extends Component {
 	renderTransactionOverview(translate) {
 		return (
 			<div id="block-history-container">
-				{this.props.tooManyRequests && <InlineNotification kind="warning"
-					title={translate('too_many_requests')}
-					subtitle=""
-					hideCloseButton={true}
-				/>}
+				{this.props.tooManyRequests && <InlineNotification kind="warning" title={translate('too_many_requests')} subtitle="" hideCloseButton={true} />}
 				<ItemContainer
 					containerTitle="block_history"
 					id="ibp-channel-details-block-history-table"
@@ -812,7 +807,7 @@ class ChannelDetails extends Component {
 	}
 
 	// redirect user to the route for this node
-	openNodeDetails = node => {
+	openNodeDetails = (node) => {
 		if (node.type === 'fabric-orderer' || node.type === 'orderer') {
 			const drillDownUrl = '/orderer/' + encodeURIComponent(node.cluster_id) + '/' + node.id;
 			this.props.showBreadcrumb('breadcrumb_name', { name: node.id }, drillDownUrl);
@@ -837,7 +832,7 @@ class ChannelDetails extends Component {
 		});
 	};
 
-	getNodeStatus = node => {
+	getNodeStatus = (node) => {
 		let status;
 		status = node.status;
 		const translate = this.props.t;
@@ -862,9 +857,7 @@ class ChannelDetails extends Component {
 			</div>
 		) : (
 			<div className="ibp-node-status-container">
-				<span className="ibp-node-status ibp-node-status-skeleton"
-					tabIndex="0"
-				/>
+				<span className="ibp-node-status ibp-node-status-skeleton" tabIndex="0" />
 				<span className="ibp-node-status-label">{translate('status_pending')}</span>
 			</div>
 		);
@@ -878,7 +871,7 @@ class ChannelDetails extends Component {
 				<p className="ibp-node-tile-msp">{node.msp_id}</p>
 				<ItemTileLabels
 					location={node.location}
-				// certificateWarning={node.certificateWarning}
+					// certificateWarning={node.certificateWarning}
 				/>
 				{this.getNodeStatus(node)}
 			</div>
@@ -887,13 +880,13 @@ class ChannelDetails extends Component {
 
 	showJoinChannelModal = () => {
 		PeerRestApi.getPeersWithCerts()
-			.then(peers => {
+			.then((peers) => {
 				this.allPeers = peers;
 				this.props.updateState(SCOPE, {
 					joinChannelModal: true,
 				});
 			})
-			.catch(error => {
+			.catch((error) => {
 				Log.error(error);
 				this.props.updateState(SCOPE, {
 					joinChannelModal: true,
@@ -907,7 +900,7 @@ class ChannelDetails extends Component {
 		});
 	};
 
-	openDeleteConsenterModal = node => {
+	openDeleteConsenterModal = (node) => {
 		this.props.updateState(SCOPE, { deleteConsenter: node });
 	};
 
@@ -915,7 +908,7 @@ class ChannelDetails extends Component {
 		this.props.updateState(SCOPE, { deleteConsenter: null });
 	};
 
-	openUpdateConsenterModal = node => {
+	openUpdateConsenterModal = (node) => {
 		this.props.updateState(SCOPE, { updateConsenter: node });
 	};
 
@@ -925,9 +918,7 @@ class ChannelDetails extends Component {
 
 	renderChannelNodes(translate) {
 		return (
-			<div id="channel-nodes-container"
-				className="ibp-channel-nodes"
-			>
+			<div id="channel-nodes-container" className="ibp-channel-nodes">
 				<ItemContainer
 					id="channel_nodes"
 					containerTitle="nodes"
@@ -938,7 +929,7 @@ class ChannelDetails extends Component {
 					loading={this.props.loading}
 					tileMapping={{
 						title: 'display_name',
-						custom: data => {
+						custom: (data) => {
 							return this.buildCustomTile(data);
 						},
 					}}
@@ -964,7 +955,7 @@ class ChannelDetails extends Component {
 							id: 'add_node',
 							text: 'add_node',
 							fn: this.showJoinChannelModal,
-							disabled: !ActionsHelper.canManageComponent(this.props.userInfo, this.props.feature_flags)
+							disabled: !ActionsHelper.canManageComponent(this.props.userInfo, this.props.feature_flags),
 						},
 					]}
 				/>
@@ -993,7 +984,7 @@ class ChannelDetails extends Component {
 							width: 3,
 						},
 					]}
-					menuItems={node => {
+					menuItems={(node) => {
 						const items = [
 							{
 								text: 'delete',
@@ -1021,18 +1012,10 @@ class ChannelDetails extends Component {
 
 	renderInstantiatedChaincode(translate) {
 		if (this.props.loading) {
-			return <ItemContainer id="ibp-instantiated-smart-contracts-table"
-				itemId="instantiatedChaincode"
-				items={[]}
-				loading={true}
-				tileMapping={{}}
-				widerTiles
-			/>;
+			return <ItemContainer id="ibp-instantiated-smart-contracts-table" itemId="instantiatedChaincode" items={[]} loading={true} tileMapping={{}} widerTiles />;
 		}
 		return (
-			<div id="instantiated-chaincode-container"
-				className="ibp-instantiated-chaincode"
-			>
+			<div id="instantiated-chaincode-container" className="ibp-instantiated-chaincode">
 				<ItemContainer
 					containerTitle="instantiated_chaincode"
 					containerTooltip="instantiated_chaincode_table_tooltip"
@@ -1060,15 +1043,15 @@ class ChannelDetails extends Component {
 
 	renderChannelDetails(translate) {
 		let channel_peers = this.channel.peers ? JSON.parse(JSON.stringify(this.channel.peers)) : null;
-		let anchor_peer_names = this.anchorPeers.map(peer => peer.id);
+		let anchor_peer_names = this.anchorPeers.map((peer) => peer.id);
 		let available_peers = []; //Non anchor peers
 		if (channel_peers) {
-			channel_peers.forEach(peer => {
+			channel_peers.forEach((peer) => {
 				if (!anchor_peer_names.includes(peer.id)) {
 					available_peers.push(peer);
 				}
 			});
-			available_peers.forEach(peer => {
+			available_peers.forEach((peer) => {
 				peer.name = peer.name + '(' + peer.msp_id + ')';
 			});
 			this.channel.available_peers = available_peers;
@@ -1099,9 +1082,7 @@ class ChannelDetails extends Component {
 					isOrdererMSP={true}
 				/>
 				{this.consenters && this.consenters.length > 0 && this.renderChannelConsenters(translate)}
-				<ChannelACLs key="acl"
-					acls={this.acls}
-				/>
+				<ChannelACLs key="acl" acls={this.acls} />
 				<ChannelAnchorPeers
 					key="anchor"
 					anchorPeers={this.anchorPeers}
@@ -1201,11 +1182,11 @@ class ChannelDetails extends Component {
 		if (this.props.updatedChannel === this.props.match.params.channelId) {
 			window.setTimeout(this.refresh, 1);
 		}
-		let peersNotJoinedYet = this.allPeers ? this.allPeers.filter(x => !this.props.peerList.find(y => y.id === x.id)) : this.allPeers;
+		let peersNotJoinedYet = this.allPeers ? this.allPeers.filter((x) => !this.props.peerList.find((y) => y.id === x.id)) : this.allPeers;
 		const { loading, match } = this.props;
 		const translate = this.props.t;
 		const isV2 = this.isV2Channel();
-		let peer = this.channel.peers ? this.channel.peers.find(peer => peer.cert && peer.private_key) : null;
+		let peer = this.channel.peers ? this.channel.peers.find((peer) => peer.cert && peer.private_key) : null;
 		let peerCerts = peer
 			? {
 				msp_id: peer.msp_id,
@@ -1254,18 +1235,9 @@ class ChannelDetails extends Component {
 						<div className="ibp__channel--container">
 							<Tabs aria-label="Tabs">
 								<TabList contained>
-									<Tab id="ibp-channel-detail-chaincode"
-									>
-										{translate('chaincode_management')}
-									</Tab>
-									<Tab id="ibp-channel-detail-tab-overview"
-									>
-										{translate('transaction_overview')}
-									</Tab>
-									<Tab id="ibp-channel-detail-tab-detail"
-									>
-										{translate('channel_details')}
-									</Tab>
+									<Tab id="ibp-channel-detail-chaincode">{translate('chaincode_management')}</Tab>
+									<Tab id="ibp-channel-detail-tab-overview">{translate('transaction_overview')}</Tab>
+									<Tab id="ibp-channel-detail-tab-detail">{translate('channel_details')}</Tab>
 								</TabList>
 								<TabPanels>
 									<TabPanel>
@@ -1281,12 +1253,8 @@ class ChannelDetails extends Component {
 											this.renderInstantiatedChaincode(translate)
 										)}
 									</TabPanel>
-									<TabPanel>
-										{this.renderTransactionOverview(translate)}
-									</TabPanel>
-									<TabPanel>
-										{this.renderChannelDetails(translate)}
-									</TabPanel>
+									<TabPanel>{this.renderTransactionOverview(translate)}</TabPanel>
+									<TabPanel>{this.renderChannelDetails(translate)}</TabPanel>
 								</TabPanels>
 							</Tabs>
 						</div>
@@ -1296,7 +1264,7 @@ class ChannelDetails extends Component {
 				{!this.props.loading && this.props.showEditChannelModal && (
 					<ChannelModal
 						onClose={this.hideEditChannelModal}
-						onComplete={channelName => {
+						onComplete={(channelName) => {
 							this.props.showSuccess('channel_update_request_submitted', { channelName }, SCOPE);
 							this.getChannel(() => {
 								this.getChannelDetails();
@@ -1415,7 +1383,7 @@ ChannelDetails.propTypes = {
 };
 
 export default connect(
-	state => {
+	(state) => {
 		let newProps = Helper.mapStateToProps(state[SCOPE], dataProps);
 		newProps['settings'] = state['settings'];
 		newProps['configtxlator_url'] = state['settings']['configtxlator_url'];

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from "@carbon/react";
+import { Button } from '@carbon/react';
 import { Information } from '@carbon/icons-react';
 
 const IBPTooltip = ({

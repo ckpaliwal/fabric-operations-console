@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import {Add, Upload} from '@carbon/icons-react';
-import { Checkbox, RadioTile, TileGroup } from "@carbon/react";
+import { Add, Upload } from '@carbon/icons-react';
+import { Checkbox, RadioTile, TileGroup } from '@carbon/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';

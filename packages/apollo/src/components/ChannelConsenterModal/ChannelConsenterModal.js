@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { CodeSnippet } from "@carbon/react";
+import { CodeSnippet } from '@carbon/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -26,7 +26,7 @@ import Form from '../Form/Form';
 import Logger from '../Log/Logger';
 import Wizard from '../Wizard/Wizard';
 import WizardStep from '../WizardStep/WizardStep';
-import RenderParamHTML from '../RenderHTML/RenderParamHTML';
+import renderParamHTML from '../RenderHTML/RenderParamHTML';
 
 const SCOPE = 'channelConsenterModal';
 const Log = new Logger(SCOPE);
@@ -102,7 +102,7 @@ class ChannelConsenterModal extends React.Component {
 			>
 				<div className="ibp-remove-consenter-desc">
 					<p>
-						{RenderParamHTML(translate, 'remove_consenter_application_channel_desc', {
+						{renderParamHTML(translate, 'remove_consenter_application_channel_desc', {
 							name: (
 								<CodeSnippet
 									type="inline"
@@ -155,7 +155,7 @@ class ChannelConsenterModal extends React.Component {
 			>
 				<div>
 					<p>
-						{RenderParamHTML(translate, 'update_consenter_application_channel_desc', {
+						{renderParamHTML(translate, 'update_consenter_application_channel_desc', {
 							name: (
 								<CodeSnippet
 									type="inline"

@@ -45,7 +45,7 @@ export default [
 			},
 		},
 		"rules": {
-			"react/jsx-max-props-per-line": [1, { "maximum": 1 }],
+			// "react/jsx-max-props-per-line": [1, { "maximum": 3 }],
 			"react/jsx-closing-bracket-location": [1, "line-aligned"],
 			"array-bracket-spacing": 0,
 			"space-before-function-paren": 0,

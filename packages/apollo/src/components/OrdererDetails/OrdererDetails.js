@@ -1413,14 +1413,14 @@ class OrdererDetails extends Component {
 							{this.props.selectedNode.isUpgradeAvailable &&
 							this.props.selectedNode.location === 'ibm_saas' &&
 							ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags) ? (
-								<div className="ibp-details-patch-container">
-									<div className="ibp-patch-available-tag ibp-node-details" onClick={() => this.openOrdererSettings('upgrade')}>
-										{translate('patch_available')}
+									<div className="ibp-details-patch-container">
+										<div className="ibp-patch-available-tag ibp-node-details" onClick={() => this.openOrdererSettings('upgrade')}>
+											{translate('patch_available')}
+										</div>
 									</div>
-								</div>
-							) : (
-								''
-							)}
+								) : (
+									''
+								)}
 						</Tab>
 					),
 					panel: () => {

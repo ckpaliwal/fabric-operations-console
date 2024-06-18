@@ -521,7 +521,7 @@ class PeerDetails extends Component {
 					<PageHeader history={this.props.history} headerName={peerName ? translate('peer_details_title', { peerName: peerName }) : ''} />
 					{peerNameSkeleton}
 				</Row>
-				<Row className='ibp-peer-details'>
+				<Row className="ibp-peer-details">
 					<div className="ibp-column width-25">
 						<div className="ibp-node-details-panel">
 							<div className="ibp-node-details-header">
@@ -586,12 +586,12 @@ class PeerDetails extends Component {
 										{details.isUpgradeAvailable &&
 										details.location === 'ibm_saas' &&
 										ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags) ? (
-											<div className="ibp-details-patch-container">
-												<div className="ibp-patch-available-tag ibp-node-details" onClick={() => this.openPeerSettings('upgrade')}>
-													{translate('patch_available')}
+												<div className="ibp-details-patch-container">
+													<div className="ibp-patch-available-tag ibp-node-details" onClick={() => this.openPeerSettings('upgrade')}>
+														{translate('patch_available')}
+													</div>
 												</div>
-											</div>
-										) : null}
+											) : null}
 									</Tab>
 								</TabList>
 								<TabPanels>
