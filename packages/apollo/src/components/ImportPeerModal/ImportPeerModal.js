@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import {Add, Upload} from '@carbon/icons-react';
-import { Checkbox, RadioTile, TileGroup } from "@carbon/react";
+import Add20 from '@carbon/icons-react/lib/add/20';
+import Upload20 from '@carbon/icons-react/lib/upload/20';
+import { Checkbox, RadioTile, TileGroup } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -463,7 +464,7 @@ class ImportPeerModal extends React.Component {
 						disabled={!ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags)}
 					>
 						<p>{translate('create_peer')}</p>
-						<Add size={20} className="ibp-fill-color ibp-import-node-add-icon" />
+						<Add20 className="ibp-fill-color ibp-import-node-add-icon" />
 					</RadioTile>
 
 					<RadioTile value={constants.IMPORTING}
@@ -472,7 +473,7 @@ class ImportPeerModal extends React.Component {
 						disabled={!ActionsHelper.canImportComponent(this.props.userInfo, this.props.feature_flags)}
 					>
 						<p>{translate('import_peer')}</p>
-						<Upload size={20} className="ibp-fill-color ibp-import-node-add-icon" />
+						<Upload20 className="ibp-fill-color ibp-import-node-add-icon" />
 					</RadioTile>
 
 				</TileGroup>
@@ -594,7 +595,7 @@ class ImportPeerModal extends React.Component {
 				</p>
 				<div className="ibp-peer-zone-wizard">
 					<Form
-						className="cds--radio-button-group--vertical"
+						className="bx--radio-button-group--vertical"
 						scope={SCOPE}
 						id="importSaasPeerZone"
 						fields={[
@@ -892,11 +893,11 @@ class ImportPeerModal extends React.Component {
 						{
 							name: 'location',
 							required: false,
-						},,
+						},
 						{
 							name: 'node_ou',
 							required: false,
-						},
+						}
 					]}
 					onChange={this.onChange}
 					singleInput={true}
@@ -1424,7 +1425,7 @@ class ImportPeerModal extends React.Component {
 					<div>
 						<button
 							id="edit_config_override"
-							className="ibp-ca-action cds--btn cds--btn--tertiary cds--btn--sm"
+							className="ibp-ca-action bx--btn bx--btn--tertiary bx--btn--sm"
 							onClick={() => {
 								const data = this.getCreateData();
 								const config_override = PeerRestApi.buildConfigOverride(data);

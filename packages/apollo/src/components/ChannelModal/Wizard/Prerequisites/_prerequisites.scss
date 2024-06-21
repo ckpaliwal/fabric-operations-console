@@ -39,7 +39,7 @@
 		padding-top: 0.5rem;
 
 		&.label {
-			@include type-style('body-short-01');
+			@include carbon--type-style('body-short-01');
 			padding-top: 0;
 		}
 	}

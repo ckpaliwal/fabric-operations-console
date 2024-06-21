@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { Download, Settings, Restart, TrashCan } from '@carbon/icons-react';
-import { Button, SkeletonPlaceholder, SkeletonText } from "@carbon/react";
+import Download20 from '@carbon/icons-react/lib/download/20';
+import Settings20 from '@carbon/icons-react/lib/settings/20';
+import Restart20 from '@carbon/icons-react/lib/restart/20';
+import Trash20 from '@carbon/icons-react/lib/trash-can/20';
+import { Button, SkeletonPlaceholder, SkeletonText } from 'carbon-components-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -172,9 +175,9 @@ const StickySection = ({
 						ActionsHelper.canManageComponent(userInfo, feature_flags) && <Button
 							id={`${details.id || details.name}-sticky-settings-button`}
 							className="ibp-detail-page-icon-button"
-							kind="ghost"
-							size="sm"
-							renderIcon={() => <Settings size={20} />}
+							kind="secondary"
+							size="small"
+							renderIcon={Settings20}
 							iconDescription={translate('comp_settings_desc')}
 							tooltipPosition="bottom"
 							tooltipAlignment="center"
@@ -195,9 +198,9 @@ const StickySection = ({
 							ActionsHelper.canManageComponent(userInfo, feature_flags) && <Button
 								id={`${details.id || details.name}-sticky-refresh-button`}
 								className="ibp-detail-page-icon-button"
-								kind="ghost"
-								size="sm"
-								renderIcon={() => <Restart size={20} />}
+								kind="secondary"
+								size="small"
+								renderIcon={Restart20}
 								iconDescription={translate('refresh_certs')}
 								tooltipPosition="bottom"
 								tooltipAlignment="center"
@@ -218,9 +221,9 @@ const StickySection = ({
 							<Button
 								id={`${details.id || details.name}-sticky-download-button`}
 								className="ibp-detail-page-icon-button"
-								kind="ghost"
-								size="sm"
-								renderIcon={() => <Download size={20} />}
+								kind="secondary"
+								size="small"
+								renderIcon={Download20}
 								iconDescription={translate('comp_export_desc')}
 								tooltipPosition="bottom"
 								tooltipAlignment="center"
@@ -241,9 +244,9 @@ const StickySection = ({
 							hasPermForTrash && <Button
 								id={`${details.id || details.name}-sticky-delete-button`}
 								className="ibp-detail-page-icon-button"
-								kind="ghost"
-								size="sm"
-								renderIcon={() => <TrashCan size={20} />}
+								kind="secondary"
+								size="small"
+								renderIcon={Trash20}
 								iconDescription={translate('delete')}
 								tooltipPosition="bottom"
 								tooltipAlignment="center"

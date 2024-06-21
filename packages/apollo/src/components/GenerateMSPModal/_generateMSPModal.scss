@@ -1,6 +1,6 @@
 #generateMSPModal {
 	h2 {
-		@include type-style('productive-heading-04');
+		@include carbon--type-style('productive-heading-04');
 	}
 
 	.ibp-side-panel-error {
@@ -18,7 +18,7 @@
 		margin-bottom: 1rem;
 	}
 
-	.cds--accordion__content {
+	.bx--accordion__content {
 		padding-bottom: 0px;
 		padding-top: 0px;
 	}
@@ -30,13 +30,13 @@
 	.ibp-error-panel {
 		margin-top: 0.75rem;
 
-		.cds--inline-notification--info {
+		.bx--inline-notification--info {
 			margin: 1.5rem 0;
 			margin-top: 0rem;
 		}
 	}
 
-	.cds--type-delta {
+	.bx--type-delta {
 		padding: 1.5rem 0 0 0;
 	}
 
@@ -62,9 +62,9 @@
 	}
 
 	.ibp__text-input {
-		@include type-style('body-short-02');
-		background: $cool-gray-80;
-		border: 1px solid $cool-gray-50;
+		@include carbon--type-style('body-short-02');
+		background: $carbon--cool-gray-80;
+		border: 1px solid $carbon--cool-gray-50;
 		color: white;
 		height: 3rem;
 		margin: 0.5rem 0rem 1rem 0rem;
@@ -96,8 +96,8 @@
 	}
 
 	.ibp-msp-tooltip {
-		.ibp--tooltip__label {
-			@include type-style('body-short-02');
+		.bx--tooltip__label {
+			@include carbon--type-style('body-short-02');
 		}
 	}
 
@@ -105,7 +105,7 @@
 		display: block;
 		height: 100%;
 
-		.cds--accordion {
+		.bx--accordion {
 			padding-bottom: 6rem;
 		}
 	}
@@ -114,7 +114,7 @@
 		background-color: #f3f1f1;
 		width: 100%;
 
-		.cds--inline-notification--error {
+		.bx--inline-notification--error {
 			color: black;
 			margin-bottom: 2rem;
 			margin-top: 2rem;
@@ -158,7 +158,7 @@
 		padding-bottom: $spacing-05;
 	}
 
-	.cds--content-switcher.ibp-identity-type-toggle {
+	.bx--content-switcher.ibp-identity-type-toggle {
 		justify-content: flex-start;
 
 		#ibp-use-new-identity,
@@ -208,8 +208,8 @@
 	}
 
 	.ibp-generate-msp-selected-ca-text {
-		@include type-style('body-short-01');
-		color: $cool-gray-30;
+		@include carbon--type-style('body-short-01');
+		color: $carbon--cool-gray-30;
 		padding-bottom: 2rem;
 	}
 }

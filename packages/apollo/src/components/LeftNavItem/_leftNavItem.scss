@@ -48,8 +48,7 @@
 		}
 	}
 
-	// .ibp-active-left-nav-item {
-	.active {
+	.ibp-active-left-nav-item {
 		border-left: 0.1875rem solid $action;
 	}
 
@@ -84,8 +83,8 @@
 		padding: 1.0875rem;
 
 		.ibp-left-nav-text {
-			@include type-style('body-short-01');
-			@include font-weight('semibold');
+			@include carbon--type-style('body-short-01');
+			@include carbon--font-weight('semibold');
 			border-bottom: 0;
 			height: auto;
 			margin-bottom: 0;

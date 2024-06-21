@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { Button, CodeSnippet, Loading, SkeletonText, Toggle, Checkbox } from "@carbon/react";
+import { Button, CodeSnippet, Loading, SkeletonText, Toggle, ToggleSmall, Checkbox } from 'carbon-components-react';
 import _ from 'lodash';
 import parse from 'parse-duration';
 import PropTypes from 'prop-types';
@@ -841,7 +841,7 @@ class OrdererModal extends React.Component {
 					<button
 						id={button.id}
 						key={button.id}
-						className="ibp-ca-action cds--btn cds--btn--tertiary cds--btn--sm"
+						className="ibp-ca-action bx--btn bx--btn--tertiary bx--btn--sm"
 						onClick={() => {
 							if (button.onClick) {
 								button.onClick();
@@ -1143,7 +1143,7 @@ class OrdererModal extends React.Component {
 
 	async associateIdentityWithOrderer() {
 		const keys = Object.keys(this.props.associatedIdentities);
-		await keys.reduce(async (previousPromise, msp_id) => {
+		keys.reduce(async (previousPromise, msp_id) => {
 			await previousPromise;
 			const id = this.props.associatedIdentities[msp_id];
 			try {
@@ -1160,9 +1160,7 @@ class OrdererModal extends React.Component {
 				throw newError;
 			}
 		}, Promise.resolve());
-
 		this.props.onComplete();
-
 		return;
 	}
 
@@ -1180,11 +1178,11 @@ class OrdererModal extends React.Component {
 			const options = this.props.applicableIdentities[msp_id] ? [do_not_associate, ...this.props.applicableIdentities[msp_id]] : [];
 			fields.push({
 				name: 'identity_' + msp_id,
-				label: 'orderer_admin_identity',
 				type: 'dropdown',
 				tooltip: 'existing_identity_dropdown_tooltip',
 				options,
 				required: false,
+				label: 'orderer_admin_identity',
 				default: !this.identities || !this.identities.length ? translate('no_identities') : msp_identity ? msp_identity : do_not_associate,
 			});
 		});
@@ -1203,18 +1201,13 @@ class OrdererModal extends React.Component {
 						id={SCOPE + '-associate'}
 						fields={fields}
 						onChange={data => {
-							console.log('triggering with data', data);
 							const changed = Object.keys(data);
 							const associatedIdentities = { ...this.props.associatedIdentities };
 							changed.forEach(field => {
 								const msp_id = field.substring(9);
 								associatedIdentities[msp_id] = data[field];
 							});
-							setTimeout(() => {
-								if (JSON.stringify(this.props.associatedIdentities) !== JSON.stringify(associatedIdentities)) {
-									this.props.updateState(SCOPE, { associatedIdentities });
-								}
-							}, 100);
+							this.props.updateState(SCOPE, { associatedIdentities });
 						}}
 					/>
 				</div>
@@ -1958,7 +1951,7 @@ class OrdererModal extends React.Component {
 					<div className="ibp-form">
 						<label className="ibp-form-label">{translate('third_party_ca')}</label>
 						<div className="ibp-form-input">
-							<Toggle size="sm"
+							<ToggleSmall
 								id="toggle-third-party-ca"
 								toggled={this.props.third_party_ca}
 								onToggle={() => {
@@ -2032,7 +2025,7 @@ class OrdererModal extends React.Component {
 				<div>
 					<button
 						id="update_hsm_action"
-						className="ibp-orderer-action cds--btn cds--btn--tertiary cds--btn--sm"
+						className="ibp-orderer-action bx--btn bx--btn--tertiary bx--btn--sm"
 						onClick={() => {
 							this.showAction('update_hsm');
 						}}
@@ -2041,7 +2034,7 @@ class OrdererModal extends React.Component {
 					</button>
 					<button
 						id="remove_hsm_action"
-						className="ibp-orderer-action cds--btn cds--btn--sm cds--btn--danger"
+						className="ibp-orderer-action bx--btn bx--btn--sm bx--btn--danger"
 						onClick={() => {
 							this.showAction('remove_hsm');
 						}}

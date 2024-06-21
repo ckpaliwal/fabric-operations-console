@@ -12,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-import { Button, Row, SkeletonPlaceholder, SkeletonText, Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
+*/
+import { Button, SkeletonPlaceholder, SkeletonText, Tab, Tabs } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -43,6 +43,7 @@ import SidePanelWarning from '../SidePanelWarning/SidePanelWarning';
 import StickySection from '../StickySection/StickySection';
 import UserDetailsModal from '../UserDetailsModal/UserDetailsModal';
 import withRouter from '../../hoc/withRouter';
+import RenderParamHTML from '../RenderHTML/RenderParamHTML';
 
 const SCOPE = 'caDetails';
 const Log = new Logger(SCOPE);
@@ -59,7 +60,7 @@ export class CADetails extends Component {
 		this.props.clearNotifications(SCOPE);
 	}
 
-	getDetails = (skipStatusCache) => {
+	getDetails = skipStatusCache => {
 		this.props.updateState(SCOPE, {
 			loading: true,
 			affiliations: [],
@@ -71,7 +72,7 @@ export class CADetails extends Component {
 			usageInfo: null,
 		});
 		CertificateAuthorityRestApi.getCADetails(this.props.match.params.caId, null, skipStatusCache)
-			.then(async (details) => {
+			.then(async details => {
 				this.props.updateBreadcrumb('breadcrumb_name', { name: details.name }, this.pathname);
 				try {
 					// Get complete config from deployer because the value stored in database stores only the latest config override json
@@ -91,7 +92,7 @@ export class CADetails extends Component {
 						// after 15 (or 5) seconds, if we do not have a response, show
 						// the not available message
 						if (this.timestamp) {
-							this.props.updateState(SCOPE, { notAvailable: true, loading: false });
+							this.props.updateState(SCOPE, { notAvailable: true, loading: false, });
 						}
 					},
 					details.associatedIdentity ? 15000 : 5000
@@ -110,14 +111,14 @@ export class CADetails extends Component {
 					}
 				);
 				NodeRestApi.getCompsResources(details)
-					.then((usageInfo) => {
+					.then(usageInfo => {
 						this.props.updateState(SCOPE, { usageInfo });
 					})
-					.catch((error) => {
+					.catch(error => {
 						Log.error(error);
 					});
 			})
-			.catch((error) => {
+			.catch(error => {
 				Log.error(error);
 				this.props.updateState(SCOPE, {
 					details: null,
@@ -142,13 +143,13 @@ export class CADetails extends Component {
 		}
 		this.props.updateState(SCOPE, { loading: true });
 		CertificateAuthorityRestApi.getUsers(details)
-			.then((users) => {
+			.then(users => {
 				this.props.updateState(SCOPE, {
 					users,
 				});
 				this.getAffiliations(details);
 			})
-			.catch((error) => {
+			.catch(error => {
 				Log.error(error);
 				this.props.updateState(SCOPE, {
 					users: [],
@@ -161,12 +162,12 @@ export class CADetails extends Component {
 
 	getAffiliations(details) {
 		CertificateAuthorityRestApi.getAffiliations(details)
-			.then((list) => {
+			.then(list => {
 				const affiliations = [];
-				list.forEach((org) => {
+				list.forEach(org => {
 					affiliations.push({ name: org.name });
 					if (org.affiliations) {
-						org.affiliations.forEach((a) => {
+						org.affiliations.forEach(a => {
 							affiliations.push(a);
 						});
 					}
@@ -176,7 +177,7 @@ export class CADetails extends Component {
 					loading: false,
 				});
 			})
-			.catch((error) => {
+			.catch(error => {
 				Log.error(error);
 				this.props.updateState(SCOPE, {
 					affiliations: [],
@@ -193,7 +194,7 @@ export class CADetails extends Component {
 		this.props.updateState(SCOPE, { showAddUser: false });
 	};
 
-	generateCertificate = (selected_user) => {
+	generateCertificate = selected_user => {
 		this.props.updateState(SCOPE, { showCertificate: true, selectedUser: selected_user });
 	};
 
@@ -201,7 +202,7 @@ export class CADetails extends Component {
 		this.props.updateState(SCOPE, { showCertificate: false });
 	};
 
-	showDeleteUserModal = (selected_user) => {
+	showDeleteUserModal = selected_user => {
 		this.props.updateState(SCOPE, { showDeleteUser: true, selectedUser: selected_user });
 	};
 
@@ -209,7 +210,7 @@ export class CADetails extends Component {
 		this.props.updateState(SCOPE, { showDeleteUser: false });
 	};
 
-	showUserDetails = (user) => {
+	showUserDetails = user => {
 		this.props.updateState(SCOPE, { userDetails: user });
 	};
 
@@ -217,7 +218,7 @@ export class CADetails extends Component {
 		this.props.updateState(SCOPE, { userDetails: null });
 	};
 
-	openCASettings = (type) => {
+	openCASettings = type => {
 		this.props.updateState(SCOPE, {
 			showSettings: true,
 			caModalType: type,
@@ -228,7 +229,7 @@ export class CADetails extends Component {
 		this.props.updateState(SCOPE, { showSettings: false });
 	};
 
-	showGenerateCert = (user) => {
+	showGenerateCert = user => {
 		this.generateCertificate(user);
 	};
 
@@ -242,14 +243,14 @@ export class CADetails extends Component {
 					this.generateCertificate(null);
 				},
 				disabled: !ActionsHelper.canManageComponent(this.props.userInfo, this.props.feature_flags),
-				decoupleFromLoading: true,
+				decoupleFromLoading: true
 			});
 			buttons.push({
 				text: 'register_user',
 				fn: this.openAddUser,
 				icon: 'plus',
 				disabled: !ActionsHelper.canManageComponent(this.props.userInfo, this.props.feature_flags),
-				decoupleFromLoading: true,
+				decoupleFromLoading: true
 			});
 		}
 		return buttons;
@@ -257,10 +258,14 @@ export class CADetails extends Component {
 
 	renderItemContainer(translate) {
 		return (
-			<div id="user-container" className="ibp__user--container">
+			<div id="user-container"
+				className="ibp__user--container"
+			>
 				{this.props.notAvailable && this.props.loading && (
 					<div className="ibp-not-available ibp-error-panel">
-						<SidePanelWarning title="ca_not_available_title" subtitle="ca_not_available_text" />
+						<SidePanelWarning title="ca_not_available_title"
+							subtitle="ca_not_available_text"
+						/>
 					</div>
 				)}
 				{this.props.details && !this.props.details.associatedIdentity ? (
@@ -278,7 +283,7 @@ export class CADetails extends Component {
 						loading={this.props.loading}
 						items={this.props.users}
 						select={this.showUserDetails}
-						menuItems={(user) => [
+						menuItems={user => [
 							{
 								text: 'generate_cert',
 								fn: () => {
@@ -318,13 +323,13 @@ export class CADetails extends Component {
 		);
 	}
 
-	generateComplete = (name) => {
+	generateComplete = name => {
 		if (!this.props.details.associatedIdentity) {
 			IdentityApi.associateCertificateAuthority(name, this.props.details.id)
 				.then(() => {
 					this.getDetails(true);
 				})
-				.catch((error) => {
+				.catch(error => {
 					this.showError('error_associate_identity');
 				});
 		}
@@ -356,7 +361,9 @@ export class CADetails extends Component {
 				) : (
 					<div>
 						<p>{translate('ca_no_identity')}</p>
-						<Button id="no-identity-button" onClick={() => this.openCASettings('associate')}>
+						<Button id="no-identity-button"
+							onClick={() => this.openCASettings('associate')}
+						>
 							{translate('associate_identity')}
 						</Button>
 					</div>
@@ -380,7 +387,7 @@ export class CADetails extends Component {
 		let upgrade_version = null;
 		if (isUpgradeAvailable) {
 			className = className + ' ibp-upgrade-available';
-			this.props.details.upgradable_versions.forEach((ver) => {
+			this.props.details.upgradable_versions.forEach(ver => {
 				if (upgrade_version === null || semver.gt(ver, upgrade_version)) {
 					upgrade_version = ver;
 				}
@@ -404,7 +411,11 @@ export class CADetails extends Component {
 									>
 										{translate('view_release_notes')}
 									</a>
-									<Button id="patch_node" kind="primary" className="ibp-patch-button" onClick={() => this.openCASettings('upgrade')}>
+									<Button id="patch_node"
+										kind="primary"
+										className="ibp-patch-button"
+										onClick={() => this.openCASettings('upgrade')}
+									>
 										{translate('update_version')}
 									</Button>
 								</div>
@@ -585,13 +596,13 @@ export class CADetails extends Component {
 		const translate = this.props.t;
 		return (
 			<PageContainer>
-				<Row>
-					<PageHeader history={this.props.history} headerName={caName ? translate('ca_details_title', { caName: caName }) : ''} />
-				</Row>
-
-				<Row className='ibp-ca-details'>
-					{caNameSkeleton}
-					<div className="ibp-column width-25">
+				<PageHeader
+					history={this.props.history}
+					headerName={caName ? translate('ca_details_title', { caName: caName }) : ''}
+				/>
+				{caNameSkeleton}
+				<div className="ibp-ca-details bx--row">
+					<div className="bx--col-lg-4">
 						<div className="ibp-node-details-panel">
 							<div className="ibp-node-tags" />
 							<div className="ibp-node-details-header">
@@ -612,51 +623,50 @@ export class CADetails extends Component {
 							</div>
 						</div>
 					</div>
-					<div className="ibp-column width-75 p-lr-10">
-						<Tabs className="ibp-tabs-container" aria-label="sub-navigation">
-							<TabList contained>
-								<Tab id="ibp-ca-detail-tab-root-ca">{translate('details')}</Tab>
-								{this.props.details && (
-									<Tab
-										id="ibp-ca-usage"
-										className={
-											this.props.details &&
+					<div className="bx--col-lg-12">
+						<Tabs className="ibp-tabs-container"
+							aria-label="sub-navigation"
+						>
+							<Tab id="ibp-ca-detail-tab-root-ca"
+								label={translate('details')}
+							>
+								<div className="ibp-tab-content">
+									<p className="ibp-ca-detail-subtext">{translate('root_ca_subtext')}</p>
+									{this.renderItemContainer(translate)}
+								</div>
+							</Tab>
+							{this.props.details && (
+								<Tab
+									id="ibp-ca-usage"
+									className={
+										this.props.details &&
 											this.props.details.isUpgradeAvailable &&
 											this.props.details.location === 'ibm_saas' &&
 											ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags)
-												? 'ibp-patch-available-tab'
-												: ''
-										}
-									>
-										{translate('usage_info')}
-										{this.props.details &&
-										this.props.details.isUpgradeAvailable &&
-										this.props.details.location === 'ibm_saas' &&
-										ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags) ? (
-											<div className="ibp-details-patch-container">
-												<div className="ibp-patch-available-tag ibp-node-details" onClick={() => this.openCASettings('upgrade')}>
-													{translate('patch_available')}
+											? 'ibp-patch-available-tab'
+											: ''
+									}
+									label={RenderParamHTML(translate, 'usage_info', {
+										patch:
+											this.props.details &&
+												this.props.details.isUpgradeAvailable &&
+												this.props.details.location === 'ibm_saas' &&
+												ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags) ?
+												(<div className="ibp-details-patch-container">
+													<div className="ibp-patch-available-tag ibp-node-details"
+														onClick={() => this.openCASettings('upgrade')}
+													>
+														{translate('patch_available')}
+													</div>
 												</div>
-											</div>
-										) : (
-											''
-										)}
-									</Tab>
-								)}
-							</TabList>
-
-							<TabPanels>
-								<TabPanel>
-									<div className="ibp-tab-content">
-										<p className="ibp-ca-detail-subtext">{translate('root_ca_subtext')}</p>
-										{this.renderItemContainer(translate)}
-									</div>
-								</TabPanel>
-								{this.props.details && <TabPanel>{this.renderUsage(translate)}</TabPanel>}
-							</TabPanels>
+												) : (''),
+									})}
+								>
+									{this.renderUsage(translate)}
+								</Tab>
+							)}
 						</Tabs>
 					</div>
-
 					<div>
 						{this.props.showCertificate && (
 							<GenerateCertificateModal
@@ -670,8 +680,7 @@ export class CADetails extends Component {
 					</div>
 					<div>
 						{this.props.showDeleteUser && (
-							<DeleteCAUserModal
-								ca={this.props.details}
+							<DeleteCAUserModal ca={this.props.details}
 								selectedUser={this.props.selectedUser}
 								onClose={this.closeDeleteUser}
 								onComplete={() => {
@@ -700,16 +709,18 @@ export class CADetails extends Component {
 								onComplete={() => {
 									this.props.updateState(SCOPE, { usageInfo: null });
 									NodeRestApi.getCompsResources(this.props.details)
-										.then((usageInfo) => {
+										.then(usageInfo => {
 											this.props.updateState(SCOPE, { usageInfo });
 										})
-										.catch((error) => {
+										.catch(error => {
 											Log.error(error);
 										});
 								}}
 							/>
 						)}
-						{!!this.props.userDetails && <UserDetailsModal user={this.props.userDetails} onClose={this.hideUserDetails} />}
+						{!!this.props.userDetails && <UserDetailsModal user={this.props.userDetails}
+							onClose={this.hideUserDetails}
+						/>}
 						{this.props.showSettings && (
 							<CAModal
 								associatedIdentity={this.props.details.associatedIdentity}
@@ -729,7 +740,7 @@ export class CADetails extends Component {
 							/>
 						)}
 					</div>
-				</Row>
+				</div>
 			</PageContainer>
 		);
 	}
@@ -767,7 +778,7 @@ CADetails.propTypes = {
 };
 
 export default connect(
-	(state) => {
+	state => {
 		let newProps = Helper.mapStateToProps(state[SCOPE], dataProps);
 		newProps.clusterType = _.get(state, 'settings.cluster_data.type');
 		newProps['userInfo'] = state['userInfo'] ? state['userInfo'] : null;

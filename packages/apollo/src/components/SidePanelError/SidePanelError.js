@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 import _ from 'lodash';
-import { ActionableNotification } from "@carbon/react";
+import { InlineNotification } from 'carbon-components-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Helper from '../../utils/helper';
@@ -71,7 +71,7 @@ export class SidePanelError extends React.Component {
 
 		return (
 			<div className="ibp-side-panel-error">
-				<ActionableNotification
+				<InlineNotification
 					kind="error"
 					title={title}
 					hideCloseButton={true}

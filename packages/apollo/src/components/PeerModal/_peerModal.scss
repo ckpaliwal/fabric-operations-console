@@ -1,5 +1,5 @@
 .ibp-actions-title {
-	@include font-weight('semibold');
+	@include carbon--font-weight('semibold');
 	color: $field-label-color;
 	margin-bottom: 1rem;
 }

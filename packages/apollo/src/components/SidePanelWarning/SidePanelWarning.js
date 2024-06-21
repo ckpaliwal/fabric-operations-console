@@ -15,14 +15,14 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ActionableNotification } from "@carbon/react";
+import { InlineNotification } from 'carbon-components-react';
 import { withTranslation } from 'react-i18next';
 
 const SidePanelWarning = props => {
 	const translate = props.t;
 	return (
 		<div className={(props.className ? props.className + ' ' : '') + 'ibp-side-panel-warning'}>
-			<ActionableNotification
+			<InlineNotification
 				kind={props.kind ? props.kind : 'warning'}
 				className={props.kind === 'warning' ? 'ibp-side-panel-warning-notification' : ''}
 				title={translate(props.title, props.data)}

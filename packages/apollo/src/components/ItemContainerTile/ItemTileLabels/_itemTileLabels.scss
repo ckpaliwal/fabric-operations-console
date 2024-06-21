@@ -4,9 +4,9 @@
 	position: absolute;
 
 	.ibp-item-tile-details-label {
-		@include type-style('label-01');
+		@include carbon--type-style('label-01');
 		align-items: center;
-		color: $cool-gray-30;
+		color: $carbon--cool-gray-30;
 		display: flex;
 		padding-bottom: 0.5rem;
 
@@ -15,14 +15,14 @@
 		}
 
 		.ibp--item-location-icon {
-			fill: $cool-gray-30;
+			fill: $carbon--cool-gray-30;
 
 			&.ibp-item-location-icon-patch-available {
-				fill: $blue-50;
+				fill: $carbon--blue-50;
 			}
 
 			&.ibp-item-location-icon-needs-attention {
-				fill: $yellow-20;
+				fill: $carbon--yellow-20;
 			}
 
 			margin-right: 0.5rem;
@@ -30,8 +30,8 @@
 	}
 
 	.ibp-item-location-import-label {
-		@include type-style('label-01');
-		color: $cool-gray-30;
+		@include carbon--type-style('label-01');
+		color: $carbon--cool-gray-30;
 	}
 
 	.ibp-certificate-expiration-warning {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { Button, NumberInputSkeleton, Toggle, DropdownSkeleton, ToggleSmallSkeleton } from "@carbon/react";
+import { Button, NumberInputSkeleton, ToggleSmall } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -30,6 +30,8 @@ import ImportModal from '../ImportModal/ImportModal';
 import Logger from '../Log/Logger';
 import PageContainer from '../PageContainer/PageContainer';
 import PageHeader from '../PageHeader/PageHeader';
+import DropdownSkeleton from 'carbon-components-react/lib/components/Dropdown/Dropdown.Skeleton';
+import ToggleSmallSkeleton from 'carbon-components-react/lib/components/ToggleSmall/ToggleSmall.Skeleton';
 import { NodeRestApi } from '../../rest/NodeRestApi';
 import IdentityApi from '../../rest/IdentityApi';
 import SidePanel from '../SidePanel/SidePanel';
@@ -218,7 +220,7 @@ export class Settings extends Component {
 							<div className="settings-toggle-inner">
 								{this.props.loading && <ToggleSmallSkeleton />}
 								{!this.props.loading && (
-									<Toggle size="sm"
+									<ToggleSmall
 										id="toggle-input"
 										toggled={!this.props.hide_transaction_input}
 										onToggle={() => {
@@ -245,7 +247,7 @@ export class Settings extends Component {
 							<div className="settings-toggle-inner">
 								{this.props.loading && <ToggleSmallSkeleton />}
 								{!this.props.loading && (
-									<Toggle size="sm"
+									<ToggleSmall
 										id="toggle-output"
 										toggled={!this.props.hide_transaction_output}
 										onToggle={() => {
@@ -299,7 +301,7 @@ export class Settings extends Component {
 							{this.props.loading && <ToggleSmallSkeleton />}
 							{!this.props.loading && (
 								<div className="settings-toggle-inner">
-									<Toggle size="sm"
+									<ToggleSmall
 										id="toggle-client-logging"
 										toggled={this.props.client_log_enabled}
 										onToggle={() => {
@@ -363,7 +365,7 @@ export class Settings extends Component {
 							{this.props.loading && <ToggleSmallSkeleton />}
 							{!this.props.loading && (
 								<div className="settings-toggle-inner">
-									<Toggle size="sm"
+									<ToggleSmall
 										id="toggle-server-logging"
 										toggled={this.props.server_log_enabled}
 										onToggle={() => {
@@ -434,7 +436,7 @@ export class Settings extends Component {
 							{this.props.loading && <ToggleSmallSkeleton />}
 							{!this.props.loading && (
 								<div className="settings-toggle-inner">
-									<Toggle size="sm"
+									<ToggleSmall
 										id="toggle-inactivity-timeouts"
 										toggled={this.props.max_idle_time_enabled}
 										onToggle={() => {
@@ -733,42 +735,42 @@ export class Settings extends Component {
 
 		return (
 			<PageContainer>
-				{/* <div className="cds-row">
-					<div className="cds--col-lg-13"> */}
-				<PageHeader
-					history={this.props.history}
-					headerName="settings"
-					staticHeader
-				/>
-				<div>
-					{this.renderTransactionData(translate)}
-					{this.renderLogging(translate)}
-					{this.renderInactivityTimeouts(translate)}
-					<div>
-						<Button id="save_settings"
-							className="ibp-save-changes"
-							onClick={this.saveSettings}
-							disabled={!this.props.isAdmin || this.props.saving}
-						>
-							{translate('save_changes')}
-						</Button>
-						{this.props.saving && (<div>
-							{translate('restarting')}
-							<div id="ibp-progress-bar-wrap">
-								<div id="ibp-progress-bar"
-									style={{
-										width: progress_width + '%'
-									}}
-								/>
+				<div className="bx--row">
+					<div className="bx--col-lg-13">
+						<PageHeader
+							history={this.props.history}
+							headerName="settings"
+							staticHeader
+						/>
+						<div>
+							{this.renderTransactionData(translate)}
+							{this.renderLogging(translate)}
+							{this.renderInactivityTimeouts(translate)}
+							<div>
+								<Button id="save_settings"
+									className="ibp-save-changes"
+									onClick={this.saveSettings}
+									disabled={!this.props.isAdmin || this.props.saving}
+								>
+									{translate('save_changes')}
+								</Button>
+								{this.props.saving && (<div>
+									{translate('restarting')}
+									<div id="ibp-progress-bar-wrap">
+										<div id="ibp-progress-bar"
+											style={{
+												width: progress_width + '%'
+											}}
+										/>
+									</div>
+								</div>)}
 							</div>
-						</div>)}
+							{this.renderVersionDebug(translate)}
+							{this.renderDataManagement(translate)}
+							{window && window.location && window.location.href && window.location.href.includes('debug') && this.renderDeleteSection(translate)}
+						</div>
 					</div>
-					{this.renderVersionDebug(translate)}
-					{this.renderDataManagement(translate)}
-					{window && window.location && window.location.href && window.location.href.includes('debug') && this.renderDeleteSection(translate)}
 				</div>
-				{/* </div>
-				</div> */}
 			</PageContainer>
 		);
 	};

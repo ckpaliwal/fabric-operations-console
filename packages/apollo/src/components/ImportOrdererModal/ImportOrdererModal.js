@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import {Add, Upload} from '@carbon/icons-react';
-import { Checkbox, Loading, RadioTile, TileGroup, Toggle } from "@carbon/react";
+import Add20 from '@carbon/icons-react/lib/add/20';
+import Upload20 from '@carbon/icons-react/lib/upload/20';
+import { Checkbox, Loading, RadioTile, TileGroup, ToggleSmall } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -509,7 +510,7 @@ class ImportOrdererModal extends React.Component {
 						disabled={!ActionsHelper.canCreateComponent(this.props.userInfo, this.props.feature_flags)}
 					>
 						<p>{translate(this.props.raftParent ? 'create_orderer_node' : 'create_orderer')}</p>
-						<Add size={20} className="ibp-fill-color ibp-import-node-add-icon" />
+						<Add20 className="ibp-fill-color ibp-import-node-add-icon" />
 					</RadioTile>
 
 					<RadioTile value={constants.IMPORTING}
@@ -518,7 +519,7 @@ class ImportOrdererModal extends React.Component {
 						disabled={!ActionsHelper.canImportComponent(this.props.userInfo, this.props.feature_flags)}
 					>
 						<p>{translate(this.props.raftParent ? 'import_orderer_node' : 'import_orderer')}</p>
-						<Upload size={20} className="ibp-fill-color ibp-import-node-add-icon" />
+						<Upload20 className="ibp-fill-color ibp-import-node-add-icon" />
 					</RadioTile>
 				</TileGroup>
 			</WizardStep>
@@ -609,7 +610,7 @@ class ImportOrdererModal extends React.Component {
 		return (
 			<>
 				<Form
-					className="cds--radio-button-group--vertical ibp-accordion-form"
+					className="bx--radio-button-group--vertical ibp-accordion-form"
 					scope={SCOPE}
 					id="importSaasOrdererZone"
 					fields={[
@@ -711,7 +712,7 @@ class ImportOrdererModal extends React.Component {
 						<div>
 							<label className="ibp-form-label">{translate('default_zones')}</label>
 						</div>
-						<Toggle size="sm"
+						<ToggleSmall
 							id="toggle-default-zones"
 							toggled={!this.props.zones.length}
 							onToggle={() => {
@@ -1848,7 +1849,7 @@ class ImportOrdererModal extends React.Component {
 					<div>
 						<button
 							id="edit_config_override"
-							className="ibp-ca-action cds--btn cds--btn--tertiary cds--btn--sm"
+							className="ibp-ca-action bx--btn bx--btn--tertiary bx--btn--sm"
 							onClick={() => {
 								const data = this.getCreateData();
 								const config_override = OrdererRestApi.buildConfigOverride(data);

@@ -1,9 +1,9 @@
 .ibp-usage-title {
-	@include font-weight('semibold');
+	@include carbon--font-weight('semibold');
 	display: inline;
 
-	.ibp--tooltip__label {
-		@include type-style('productive-heading-03');
+	.bx--tooltip__label {
+		@include carbon--type-style('productive-heading-03');
 	}
 }
 

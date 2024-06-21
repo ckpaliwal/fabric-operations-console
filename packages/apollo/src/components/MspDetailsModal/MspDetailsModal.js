@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-import { Button, Loading, TextInput } from "@carbon/react";
+import { Button, Loading, TextInput } from 'carbon-components-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
@@ -88,7 +88,6 @@ class MspDetailsModal extends React.Component {
 											className="ibp__text-input"
 											value={rootCert}
 											disabled
-											labelText=''
 										/>
 									</div>
 								</div>
@@ -116,7 +115,6 @@ class MspDetailsModal extends React.Component {
 											className="ibp__text-input"
 											value={admin}
 											disabled
-											labelText=''
 										/>
 									</div>
 								</div>

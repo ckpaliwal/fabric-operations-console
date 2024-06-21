@@ -14,7 +14,7 @@
  * limitations under the License.
 */
 
-import { Button, Row, SkeletonText } from "@carbon/react";
+import { Button, SkeletonText } from 'carbon-components-react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -281,49 +281,51 @@ class OrganizationDetails extends Component {
 		const translate = this.props.t;
 		return (
 			<PageContainer>
-				<Row>
-					{mspName && <PageHeader history={this.props.history}
-						headerName={translate('msp_details_title', { mspName: mspName })}
-					/>}
-					{mspNameSkeleton}
-				</Row>
-				<Row>
-					<div className="ibp-column width-25">
-						<StickySection
-							openSettings={type => this.openMSPSettings(type)}
-							details={this.props.details}
-							title="organization"
-							exportNode={() => this.exportMSP()}
-							loading={this.props.loading}
-							groups={this.getStickySectionGroups(translate)}
-							hideRefreshCerts
-							feature_flags={this.props.feature_flags}
-							userInfo={this.props.userInfo}
-							custom={() => {
-								return (
-									<Button
-										id="open-connection-profile"
-										kind="primary"
-										disabled={_.isEmpty(this.props.details)}
-										className="ibp-open-connection-profile"
-										onClick={this.openConnectionProfileModal}
-									>
-										{translate('create_connection_profile')}
-										<span
-											style={{
-												position: 'absolute',
-												right: '1rem',
-											}}
-										>
-											+
-										</span>
-									</Button>
-								);
-							}}
-						/>
+				<div className="ibp-msp-details bx--row">
+					<div className="bx--col-lg-4">
+						<div className="ibp-node-details-panel">
+							<div className="ibp-node-details-header">
+								{mspName && <PageHeader history={this.props.history}
+									headerName={translate('msp_details_title', { mspName: mspName })}
+								/>}
+								{mspNameSkeleton}
+								<StickySection
+									openSettings={type => this.openMSPSettings(type)}
+									details={this.props.details}
+									title="organization"
+									exportNode={() => this.exportMSP()}
+									loading={this.props.loading}
+									groups={this.getStickySectionGroups(translate)}
+									hideRefreshCerts
+									feature_flags={this.props.feature_flags}
+									userInfo={this.props.userInfo}
+									custom={() => {
+										return (
+											<Button
+												id="open-connection-profile"
+												kind="primary"
+												disabled={_.isEmpty(this.props.details)}
+												className="ibp-open-connection-profile"
+												onClick={this.openConnectionProfileModal}
+											>
+												{translate('create_connection_profile')}
+												<span
+													style={{
+														position: 'absolute',
+														right: '1rem',
+													}}
+												>
+													+
+												</span>
+											</Button>
+										);
+									}}
+								/>
+							</div>
+						</div>
 					</div>
 
-					<div className="ibp-column width-75 p-lr-10">
+					<div className="bx--col-lg-12">
 						{details && this.props.associatedPeers && this.props.associatedPeers.length > 0 && (
 							<div>
 								<p className="ibp-msp-joined-peers">{translate('peers')}</p>
@@ -397,20 +399,6 @@ class OrganizationDetails extends Component {
 						{details && this.props.showConnectionProfile && <ConnectionProfileModal onClose={this.closeConnectionProfileModal}
 							msp={details}
 						/>}
-					</div>
-				</Row>
-				<div className="ibp-msp-details cds-row">
-					<div className="cds--col-lg-4">
-						<div className="ibp-node-details-panel">
-							<div className="ibp-node-details-header">
-
-
-							</div>
-						</div>
-					</div>
-
-					<div className="cds--col-lg-12">
-
 					</div>
 				</div>
 			</PageContainer>

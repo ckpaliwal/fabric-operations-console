@@ -19,13 +19,15 @@ const RenderParamHTML = (translate, transKey, mapping) => {
 		doms.push(parts[1]);
 	}
 
-	return <span>{doms.map((elem) => (elem?.type === 'component' ? elem.component : <span dangerouslySetInnerHTML={{ __html: elem }}></span>))}</span>;
+	return <span>{doms.map(elem => elem?.type === 'component' ? elem.component : <span dangerouslySetInnerHTML={{ __html: elem }}></span>)}</span>;
 };
 
 RenderParamHTML.propTypes = {
 	translate: PropTypes.func,
 	transKey: PropTypes.string,
-	mapping: PropTypes.object,
+	mapping: PropTypes.object
 };
+
+
 
 export default RenderParamHTML;

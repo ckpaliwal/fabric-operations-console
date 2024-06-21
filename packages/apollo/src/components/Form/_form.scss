@@ -6,7 +6,7 @@
 
 		.ibp-form-label,
 		.ibp-form-label-disabled {
-			@include type-style('label-01');
+			@include carbon--type-style('label-01');
 			color: $field-label-color;
 		}
 
@@ -15,7 +15,7 @@
 			border: solid 1px $field-border;
 			position: relative;
 
-			.cds--text__input {
+			.bx--text__input {
 				width: 100%;
 
 				&:hover &:not(&:disabled) {
@@ -34,13 +34,13 @@
 				}
 			}
 
-			textarea.cds--text__input {
+			textarea.bx--text__input {
 				height: 7rem;
 				padding-top: 1rem;
 				padding-bottom: 1rem;
 			}
 
-			textarea.cds--text-area.cds--text__input.ibm-label {
+			textarea.bx--text-area.bx--text__input.ibm-label {
 				height: inherit;
 			}
 
@@ -61,7 +61,7 @@
 			}
 
 			.ibp-text-input-error {
-				@include type-style('label-01');
+				@include carbon--type-style('label-01');
 				color: $field-error;
 				padding-top: 0.5rem;
 				padding-bottom: 0.5rem;
@@ -76,13 +76,13 @@
 		}
 
 		.ibp-pem-delete,
-		.cds--text__input {
+		.bx--text__input {
 			opacity: 0.4;
 			cursor: not-allowed;
 		}
 
 		.ibp-pem-input {
-			.cds--btn {
+			.bx--btn {
 				cursor: not-allowed;
 				background-color: $buttonDisabled;
 			}
@@ -104,16 +104,16 @@
 				flex-grow: 1;
 				background-color: $field-background;
 				border: none;
-				color: $white-0;
+				color: $carbon--white-0;
 				padding-left: 1rem;
 
 				&:hover {
-					box-shadow: inset 0px 0px 0px 1px $white-0;
+					box-shadow: inset 0px 0px 0px 1px $carbon--white-0;
 					transition: $basic-duo-transition;
 				}
 
 				&:focus {
-					box-shadow: inset 0px 0px 0px 2px $white-0;
+					box-shadow: inset 0px 0px 0px 2px $carbon--white-0;
 					transition: $basic-duo-transition;
 				}
 			}
@@ -123,16 +123,16 @@
 				flex-grow: 1;
 				background-color: $field-background;
 				border: none;
-				color: $white-0;
+				color: $carbon--white-0;
 				padding-left: 1rem;
 
 				&:hover {
-					box-shadow: inset 0px 0px 0px 1px $white-0;
+					box-shadow: inset 0px 0px 0px 1px $carbon--white-0;
 					transition: $basic-duo-transition;
 				}
 
 				&:focus {
-					box-shadow: inset 0px 0px 0px 2px $white-0;
+					box-shadow: inset 0px 0px 0px 2px $carbon--white-0;
 					transition: $basic-duo-transition;
 				}
 			}
@@ -154,7 +154,7 @@
 	.ibp-multi-select {
 		padding-right: 1rem;
 		padding-bottom: 1rem;
-		@include font-weight('regular');
+		@include carbon--font-weight('regular');
 
 		.ibp-multi-select-item {
 			min-height: 1rem;
@@ -181,7 +181,7 @@
 		justify-content: flex-end;
 		position: relative;
 
-		.cds--dropdown__wrapper {
+		.bx--dropdown__wrapper {
 			width: 100%;
 		}
 
@@ -194,9 +194,9 @@
 	}
 }
 
-// .ibp-form-password {
-// 	padding-right: 44px;
-// }
+.ibp-form-password {
+	padding-right: 44px;
+}
 
 .ibp-form-readonly-div {
 	overflow: hidden;
@@ -215,15 +215,15 @@
 }
 
 .ibp-pem-input {
-	.cds--label {
+	.bx--label {
 		display: none;
 	}
 
-	.cds--label-description {
+	.bx--label-description {
 		display: none;
 	}
 
-	.cds--btn {
+	.bx--btn {
 		margin-top: 0.5rem;
 	}
 }
@@ -251,7 +251,7 @@
 
 		&:hover,
 		&:focus {
-			background: $cool-gray-80;
+			background: $carbon--cool-gray-80;
 		}
 
 		&:focus {
@@ -269,37 +269,37 @@
 .ibp-form-field {
 
 	.radioButtonWrapper,
-	.cds--radio-button-wrapper {
+	.bx--radio-button-wrapper {
 		margin: 0.5rem;
 
-		.cds--radio-button__label {
-			@include type-style('body-short-01');
-			color: $white-0;
+		.bx--radio-button__label {
+			@include carbon--type-style('body-short-01');
+			color: $carbon--white-0;
 			justify-content: left;
 		}
 	}
 }
 
 .ibp-form-slider {
-	.cds--slider-container {
+	.bx--slider-container {
 		width: 30rem;
 	}
 
-	.cds--slider__thumb,
-	.cds--slider__thumb:active,
-	.cds--slider__filled-track {
+	.bx--slider__thumb,
+	.bx--slider__thumb:active,
+	.bx--slider__filled-track {
 		background-color: $white;
 	}
 
-	.cds--slider-text-input {
+	.bx--slider-text-input {
 		width: 6rem;
 	}
 
-	.cds--slider__range-label {
+	.bx--slider__range-label {
 		white-space: nowrap;
 	}
 
-	.cds--label {
+	.bx--label {
 		display: none;
 	}
 }
@@ -358,8 +358,8 @@
 	}
 
 	.ibp-input-field-password {
-		.cds--text-input__field-wrapper[data-invalid='true'] {
-			.cds--text-input__invalid-icon {
+		.bx--text-input__field-wrapper[data-invalid='true'] {
+			.bx--text-input__invalid-icon {
 				right: 2.5rem;
 			}
 		}
@@ -367,11 +367,11 @@
 }
 
 .ibp-horizontal-radio {
-	.cds--radio-button-wrapper {
+	.bx--radio-button-wrapper {
 		display: inline-block;
 		vertical-align: top;
 
-		.cds--radio-button__label {
+		.bx--radio-button__label {
 			padding-left: 2rem;
 		}
 	}
@@ -383,7 +383,7 @@
 }
 
 .ibp-multi-select-2 {
-	.cds--checkbox-label {
+	.bx--checkbox-label {
 		padding-left: 1.5rem;
 	}
 }

@@ -1,21 +1,19 @@
-.ibm .cds--data-table-content {
-	.cds--overflow-menu {
+.ibm .bx--data-table-v2 {
+	.bx--overflow-menu {
 		opacity: 1;
 		width: 2.5rem;
-		min-width: 2.5rem;
 		height: 100%;
 		padding: 0.4rem;
-		background: none;
 
 		&:hover {
-			background-color: $cool-gray-80;
+			background-color: $carbon--cool-gray-80;
 		}
 
 		&:focus {
-			background-color: $cool-gray-80;
+			background-color: $carbon--cool-gray-80;
 		}
 
-		.cds--overflow-menu__icon {
+		.bx--overflow-menu__icon {
 			transform: none;
 
 			&:hover {
@@ -23,7 +21,7 @@
 			}
 		}
 
-		.cds--overflow-menu-options {
+		.bx--overflow-menu-options {
 			padding: 0;
 			background: #242a2e;
 			margin-top: 1px;
@@ -32,23 +30,23 @@
 			border: none;
 			box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.4);
 
-			.cds--overflow-menu-options__btn {
+			.bx--overflow-menu-options__btn {
 				white-space: normal;
 			}
 		}
 	}
 }
 
-.cds--overflow-menu-options__option {
+.bx--overflow-menu-options__option {
 	height: 3rem;
-	background-color: $cool-gray-80;
+	background-color: $carbon--cool-gray-80;
 
 	&:hover {
-		background-color: $cool-gray-90 !important;
+		background-color: $carbon--cool-gray-90 !important;
 	}
 }
 
-.cds--overflow-menu-options__option--disabled {
+.bx--overflow-menu-options__option--disabled {
 	button {
 		color: #697075;
 	}

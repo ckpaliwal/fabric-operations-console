@@ -12,8 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-import { Button, Dropdown, DropdownSkeleton, InlineLoading, MultiSelect, RadioButton, SelectableTile, SkeletonText, TextArea, TextInput } from '@carbon/react';
+*/
+import { Button, Dropdown, InlineLoading, MultiSelect, RadioButton, SelectableTile, SkeletonText, TextArea, TextInput } from 'carbon-components-react';
+import DropdownSkeleton from 'carbon-components-react/lib/components/Dropdown/Dropdown.Skeleton';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -37,9 +38,9 @@ class Form extends Component {
 		const formData = {};
 		formData[this.props.id] = {};
 		const data = {};
-		this.props.fields.forEach((field) => {
+		this.props.fields.forEach(field => {
 			if (field.type === 'dropdown' && field.format === 'object') {
-				data[field.name] = { value: this.getDefaultValue(field) }; // some dropdown fields hold an object...
+				data[field.name] = { value: this.getDefaultValue(field) };		// some dropdown fields hold an object...
 			} else {
 				data[field.name] = this.getDefaultValue(field);
 			}
@@ -93,7 +94,7 @@ class Form extends Component {
 	validateNameValuePairs(pairs) {
 		let valid = true;
 		if (pairs) {
-			pairs.forEach((pair) => {
+			pairs.forEach(pair => {
 				if (Helper.validateCharacters(pair.name)) {
 					if (!Helper.validateCharacters(pair.value)) {
 						valid = false;
@@ -110,7 +111,7 @@ class Form extends Component {
 		let value = data[field.name];
 		let valid = false;
 		if (value) {
-			field.options.forEach((option) => {
+			field.options.forEach(option => {
 				if (typeof value === 'string') {
 					if (option === value) {
 						valid = true;
@@ -132,7 +133,7 @@ class Form extends Component {
 		let count = 0;
 		let sub = null;
 		let subValue = null;
-		this.props.fields.forEach((field) => {
+		this.props.fields.forEach(field => {
 			switch (field.type) {
 				case 'dropdown':
 					if (field.required && !this.isDropDownValid(field, data)) {
@@ -159,7 +160,7 @@ class Form extends Component {
 						valid = false;
 					}
 					if (data[field.name]) {
-						data[field.name].forEach((chip) => {
+						data[field.name].forEach(chip => {
 							if (!Helper.validateCharacters(chip)) {
 								valid = false;
 							}
@@ -284,14 +285,14 @@ class Form extends Component {
 		const markup = (
 			<div className={field.type === 'password' ? 'ibp-input-field-password' : ''}>
 				<TextInput
-					// className={field.type === 'password' ? ' ibp-form-password' : ''}
+					className={field.type === 'password' ? ' ibp-form-password' : ''}
 					id={this.props.id + '-' + field.name}
 					name={field.name}
 					type={field_type}
 					value={formatted_value || ''}
 					disabled={field.disabled}
 					placeholder={field.placeholder ? translate(field.placeholder) : translate(field.name + '_placeholder')}
-					onChange={(evt) => {
+					onChange={evt => {
 						const data = {};
 						data[field.name] = evt.target.value;
 						if (data[field.name] && field.type === 'number') {
@@ -326,7 +327,7 @@ class Form extends Component {
 			</div>
 		);
 		if (field.type === 'password') {
-			return <form onSubmit={(e) => e.preventDefault()}>{markup}</form>;
+			return <form onSubmit={e => e.preventDefault()}>{markup}</form>;
 		}
 		return markup;
 	}
@@ -349,7 +350,7 @@ class Form extends Component {
 				<TextArea
 					id={this.props.id + '-' + field.name}
 					name={field.name}
-					className="cds--text__input ibm-label"
+					className="bx--text__input ibm-label"
 					value={value || ''}
 					readOnly
 					labelText={translate(field.label || field.name, field.labelOptions)}
@@ -361,10 +362,10 @@ class Form extends Component {
 			<TextArea
 				id={this.props.id + '-' + field.name}
 				name={field.name}
-				className="cds--text__input ibm-label"
+				className="bx--text__input ibm-label"
 				value={value || ''}
 				placeholder={field.placeholder ? translate(field.placeholder) : translate(field.name + '_placeholder')}
-				onChange={(evt) => {
+				onChange={evt => {
 					const data = {};
 					data[field.name] = evt.target.value;
 					if (data[field.name].indexOf('\\n') > 1) {
@@ -396,13 +397,13 @@ class Form extends Component {
 	fixStringOptions(options) {
 		const opts = [];
 		if (options) {
-			options.forEach((option) => {
+			options.forEach(option => {
 				if (typeof option === 'string') {
 					opts.push({ value: option, name: option });
 				} else if (option.display_name) {
-					opts.push({ ...option, value: option.display_name }); // fabric component dropdown options don't set "value"...
+					opts.push({ ...option, value: option.display_name });	// fabric component dropdown options don't set "value"...
 				} else if (option.version) {
-					opts.push({ ...option, value: option.version }); // fabric version dropdown options don't set "value"...
+					opts.push({ ...option, value: option.version });		// fabric version dropdown options don't set "value"...
 				} else {
 					opts.push(option);
 				}
@@ -418,7 +419,7 @@ class Form extends Component {
 	// there are also options that seem to have custom objects, that have a "name" field....
 	fixSelectedItem(data, options) {
 		if (data) {
-			const value = typeof data === 'string' ? data : data.value;
+			const value = (typeof data === 'string') ? data : data.value;
 			for (let i in options) {
 				if (typeof options[i] === 'string') {
 					if (options[i] === value) {
@@ -429,8 +430,7 @@ class Form extends Component {
 						if (options[i] && options[i].value === value) {
 							return options[i];
 						}
-					} else {
-						// if there is no "value" field... look for name
+					} else {			// if there is no "value" field... look for name
 						if (data && data.name && options[i] && options[i].name === data.name) {
 							return options[i];
 						}
@@ -444,7 +444,7 @@ class Form extends Component {
 	fixChangedItem(options, item) {
 		let ret = item;
 		if (options) {
-			options.forEach((option) => {
+			options.forEach(option => {
 				if (typeof option === 'string' && item.name === option) {
 					ret = option;
 				}
@@ -469,9 +469,9 @@ class Form extends Component {
 				) : (
 					<div
 						className="ibp-drop-down-container"
-						onMouseOver={(evt) => {
+						onMouseOver={evt => {
 							let target = evt.target;
-							if (target.className === 'cds--list-box__label') {
+							if (target.className === 'bx--list-box__label') {
 								if (value && value.tooltip) {
 									target.title = value.tooltip;
 								} else {
@@ -480,7 +480,7 @@ class Form extends Component {
 									}
 								}
 							}
-							if (target.className === 'cds--list-box__menu-item__option') {
+							if (target.className === 'bx--list-box__menu-item__option') {
 								let id = target.parentNode.id;
 								if (id) {
 									while (id.indexOf('-') > -1) {
@@ -501,13 +501,13 @@ class Form extends Component {
 							label={field.name}
 							id={field.name}
 							name={field.name}
-							aria-label={translate(field.label || field.name, field.labelOptions)}
+							ariaLabel={translate(field.label || field.name, field.labelOptions)}
 							items={fixed_options}
 							selectedItem={fixed_value ? fixed_value : field.default}
 							disabled={field.disabled}
 							invalid={error ? true : false}
 							invalidText={error && translate(error, field.errorMsgOptions)}
-							itemToString={(item) => {
+							itemToString={item => {
 								if (item) {
 									if (item.display_name) {
 										if (field.translateOptions) {
@@ -530,19 +530,16 @@ class Form extends Component {
 								}
 								return '';
 							}}
-							onChange={(item) => {
-								console.log('dropdown on change');
+							onChange={item => {
 								const data = {};
 								data[field.name] = this.fixChangedItem(field.options, item.selectedItem);
-								if (JSON.stringify(this.props.scope[field.name]) !== JSON.stringify(data[field.name])) {
-									this.props.updateState(this.props.scope, data);
-									if (this.props.onChange) {
-										const valid = this.isFormValid({
-											...this.props,
-											...data,
-										});
-										this.props.onChange(data, valid, field, this.props.formProps);
-									}
+								this.props.updateState(this.props.scope, data);
+								if (this.props.onChange) {
+									const valid = this.isFormValid({
+										...this.props,
+										...data,
+									});
+									this.props.onChange(data, valid, field, this.props.formProps);
 								}
 							}}
 						/>
@@ -564,7 +561,7 @@ class Form extends Component {
 				aria-label={translate(field.label || field.name, field.labelOptions)}
 				className={field.horizontal ? 'ibp-horizontal-radio' : 'ibp-vertical-radio'}
 			>
-				{field.options.map((opt) => {
+				{field.options.map(opt => {
 					return (
 						<RadioButton
 							key={opt.id || opt}
@@ -623,7 +620,9 @@ class Form extends Component {
 		let pair = value[index];
 		if (field.readonly) {
 			return (
-				<div className="ibp-name-value-pair" key={pair.key}>
+				<div className="ibp-name-value-pair"
+					key={pair.key}
+				>
 					<TextInput
 						className="ibp-name-value-name"
 						defaultValue={pair.name}
@@ -642,14 +641,18 @@ class Form extends Component {
 		}
 		const id = field.name + '-' + pair.key;
 		return (
-			<div id={id} className={this.props.formProps[field.name][pair.key] && this.props.formProps[field.name][pair.key].error ? 'input_error' : ''}>
-				<div className="ibp-name-value-pair" key={pair.key}>
+			<div id={id}
+				className={this.props.formProps[field.name][pair.key] && this.props.formProps[field.name][pair.key].error ? 'input_error' : ''}
+			>
+				<div className="ibp-name-value-pair"
+					key={pair.key}
+				>
 					<TextInput
 						className="ibp-name-value-name"
 						defaultValue={pair.name}
 						placeholder={translate(field.attribute_placeholder || 'attribute_name_placeholder')}
 						aria-label={`${translate(field.label || field.name)} ${translate('label_name')}`}
-						onChange={(evt) => {
+						onChange={evt => {
 							pair.name = evt.target.value;
 							const data = {};
 							data[field.name] = [...value];
@@ -663,7 +666,7 @@ class Form extends Component {
 						defaultValue={pair.value}
 						placeholder={translate(field.value_placeholder || 'attribute_value_placeholder')}
 						aria-label={`${translate(field.label || field.name)} ${translate('label_value')}`}
-						onChange={(evt) => {
+						onChange={evt => {
 							pair.value = evt.target.value;
 							const data = {};
 							data[field.name] = [...value];
@@ -709,7 +712,7 @@ class Form extends Component {
 		}
 		return (
 			<div className="ibp-name-value-list">
-				{value.map((pair) => {
+				{value.map(pair => {
 					return this.renderNameValuePair(field, index++, value, translate);
 				})}
 				{!field.readonly && field.type !== 'namevaluepair' && (
@@ -733,7 +736,10 @@ class Form extends Component {
 						}}
 					>
 						{translate(field.addText || 'add')}
-						<PlusIcon className="ibp-name-value-add-button-img" role="presentation" alt="" />
+						<PlusIcon className="ibp-name-value-add-button-img"
+							role="presentation"
+							alt=""
+						/>
 					</Button>
 				)}
 			</div>
@@ -800,11 +806,14 @@ class Form extends Component {
 
 	renderMultiSelect(field, value, translate) {
 		return (
-			<div className="ibp-multi-select" role="group" aria-label={translate(field.label || field.name)}>
+			<div className="ibp-multi-select"
+				role="group"
+				aria-label={translate(field.label || field.name)}
+			>
 				{field.loading ? (
 					<DropdownSkeleton />
 				) : (
-					field.options.map((option) => {
+					field.options.map(option => {
 						const optionId = option.id || option;
 						const optionValue = option.display_name || option.name;
 						const disabled = field.disabledIds && field.disabledIds.length > 0 && field.disabledIds.includes(optionId);
@@ -814,23 +823,25 @@ class Form extends Component {
 								id={this.props.id + '-' + optionId}
 								name={optionValue}
 								className={`ibp-multi-select-item ${disabled ? 'ibp-multi-select-item-disabled' : ''}`}
-								onClick={() => {
+								handleClick={() => {
 									this.onMultiSelectChange(field, option);
 								}}
-								onKeyDown={(evt) => {
+								handleKeyDown={evt => {
 									if (evt.which === null) {
 										this.onMultiSelectChange(field, option);
 									}
 								}}
 								selected={this.isOptionSelected(option, value)}
-								ref={(selectableTileComponent) => {
+								ref={selectableTileComponent => {
 									if (selectableTileComponent && disabled) {
-										selectableTileComponent.handleKeyDown = function () {};
+										selectableTileComponent.handleKeyDown = function () { };
 									}
 								}}
 							>
 								{disabled && field.disabledTooltip && !field.readonly ? (
-									<BlockchainTooltip noIcon triggerText={<span>{option.display_name || option.name || option.id || translate(option)}</span>}>
+									<BlockchainTooltip noIcon
+										triggerText={<span>{option.display_name || option.name || option.id || translate(option)}</span>}
+									>
 										{translate(field.disabledTooltip)}
 									</BlockchainTooltip>
 								) : (
@@ -858,14 +869,14 @@ class Form extends Component {
 					<MultiSelect
 						id={this.props.id + '-' + field.name}
 						items={field.options}
-						itemToString={(option) => {
+						itemToString={option => {
 							return ' ' + (option.display_name || option.name || option.id || option);
 						}}
 						selectionFeedback="fixed"
 						label={field.placeholder ? translate(field.placeholder) : translate(field.name + '_placeholder')}
 						titleText={`${translate(field.label || field.name, field.labelOptions)} ${field.required ? ' *' : ''}`}
 						direction="bottom"
-						onChange={(event) => {
+						onChange={event => {
 							const selected = event.selectedItems;
 							this.onMultiSelect2Change(field, selected);
 						}}
@@ -887,7 +898,7 @@ class Form extends Component {
 					id={`${id}-chips`}
 					placeholder={field.placeholder ? translate(field.placeholder) : translate(field.name + '_placeholder')}
 					value={value}
-					handleBeforeAddChip={(chipText) => {
+					handleBeforeAddChip={chipText => {
 						return true;
 					}}
 					handleAddChip={(...addedChips) => {
@@ -898,7 +909,7 @@ class Form extends Component {
 						if (this.props.onChange) {
 							let valid = true;
 							let cn = '';
-							data[field.name].forEach((chip) => {
+							data[field.name].forEach(chip => {
 								if (!Helper.validateCharacters(chip)) {
 									valid = false;
 									cn = 'input_error invalid_char';
@@ -914,15 +925,15 @@ class Form extends Component {
 							this.props.onChange(data, valid, field, this.props.formProps);
 						}
 					}}
-					handleDeleteChip={(deletedChip) => {
+					handleDeleteChip={deletedChip => {
 						const oldChips = this.props[field.name] || [];
 						const data = {};
-						data[field.name] = oldChips.filter((c) => c !== deletedChip);
+						data[field.name] = oldChips.filter(c => c !== deletedChip);
 						this.props.updateState(this.props.scope, data);
 						if (this.props.onChange) {
 							let valid = true;
 							let cn = '';
-							data[field.name].forEach((chip) => {
+							data[field.name].forEach(chip => {
 								if (!Helper.validateCharacters(chip)) {
 									valid = false;
 									cn = 'input_error invalid_char';
@@ -947,7 +958,11 @@ class Form extends Component {
 	}
 
 	renderComponent(field, value, translate) {
-		return <div id={field}>{value}</div>;
+		return (
+			<div id={field}>
+				{value}
+			</div>
+		);
 	}
 
 	validatePEMField(field, value, checkOnly) {
@@ -1021,7 +1036,10 @@ class Form extends Component {
 				}}
 				disabled={field.disabled}
 			>
-				<SVGs type="trash" width="20px" height="20px" />
+				<SVGs type="trash"
+					width="20px"
+					height="20px"
+				/>
 			</button>
 		);
 	}
@@ -1036,7 +1054,11 @@ class Form extends Component {
 					Helper.exportPem(field.type, value);
 				}}
 			>
-				<SVGs type="download" width="20px" height="20px" title={translate(field.type === 'private_key' ? 'export_private_key_as_pem' : 'export_cert_as_pem')} />
+				<SVGs type="download"
+					width="20px"
+					height="20px"
+					title={translate(field.type === 'private_key' ? 'export_private_key_as_pem' : 'export_cert_as_pem')}
+				/>
 			</button>
 		);
 	}
@@ -1053,7 +1075,7 @@ class Form extends Component {
 							id={this.props.id + '-' + field.name}
 							name={field.name}
 							type="text"
-							className="cds--text__input ibm-label"
+							className="bx--text__input ibm-label"
 							value={this.props.formProps[field.name].file.name}
 							readOnly={field.readonly}
 							aria-label={translate(field.label || field.name, field.labelOptions)}
@@ -1073,7 +1095,7 @@ class Form extends Component {
 							id={this.props.id + '-' + field.name}
 							name={field.name}
 							type="text"
-							className="cds--text__input ibm-label"
+							className="bx--text__input ibm-label"
 							value={value}
 							readOnly={true}
 							aria-label={translate(field.label || field.name, field.labelOptions)}
@@ -1094,11 +1116,11 @@ class Form extends Component {
 					buttonLabel={translate(`add_${field.type}`)}
 					name="file"
 					multiple={false}
-					onChange={(event) => {
+					onChange={event => {
 						const file = event.target.files[0];
 						this.updateFormProp(field, { file });
 						Helper.readLocalTextFile(file, MAX_PEM_SIZE)
-							.then((text) => {
+							.then(text => {
 								let pem = Helper.cleanUpCertificateFormat(text);
 								if (/^-----BEGIN/m.exec(pem)) {
 									pem = btoa(pem);
@@ -1117,7 +1139,7 @@ class Form extends Component {
 									onChange(data, valid, field, this.props.formProps);
 								}
 							})
-							.catch((error) => {
+							.catch(error => {
 								const data = {};
 								data[field.name] = '';
 								this.props.updateState(this.props.scope, data);
@@ -1157,7 +1179,7 @@ class Form extends Component {
 							id={this.props.id + '-' + field.name}
 							name={field.name}
 							type="text"
-							className="cds--text__input ibm-label cds--text-input"
+							className="bx--text__input ibm-label bx--text-input"
 							value={this.props.formProps[field.name].file.name}
 							readOnly={field.readonly}
 							aria-label={translate(field.label || field.name, field.labelOptions)}
@@ -1179,7 +1201,7 @@ class Form extends Component {
 						id={this.props.id + '-' + field.name}
 						name={field.name}
 						type="text"
-						className="cds--text__input ibm-label"
+						className="bx--text__input ibm-label"
 						value={value}
 						readOnly={true}
 						aria-label={translate(field.label || field.name, field.labelOptions)}
@@ -1198,10 +1220,10 @@ class Form extends Component {
 					name="file"
 					multiple={false}
 					disabled={field.disabled}
-					onChange={(event) => {
+					onChange={event => {
 						const file = event.target.files[0];
 						this.updateFormProp(field, { file });
-						Helper.readLocalJsonFile(file, MAX_PEM_SIZE).then((resp) => {
+						Helper.readLocalJsonFile(file, MAX_PEM_SIZE).then(resp => {
 							if (resp.error) {
 								const data = {};
 								data[field.name] = null;
@@ -1265,7 +1287,7 @@ class Form extends Component {
 					maxLabel={field.unit}
 					ariaLabelInput={translate(field.label || field.name, field.labelOptions)}
 					labelText={translate(field.label || field.name, field.labelOptions)}
-					onChange={(change) => {
+					onChange={change => {
 						const data = {};
 						data[field.name] = change.value;
 						this.props.updateState(this.props.scope, data);
@@ -1288,7 +1310,7 @@ class Form extends Component {
 	updatePemList(field, subfields, data, formProps) {
 		const list = [];
 		const filenames = [];
-		subfields.forEach((sub) => {
+		subfields.forEach(sub => {
 			let value = data[sub] || this.props[sub];
 			if (value) {
 				list.push(value);
@@ -1319,7 +1341,7 @@ class Form extends Component {
 		const subfields = formProps && formProps.subfields ? formProps.subfields : [];
 		return (
 			<div>
-				{subfields.map((sub) => {
+				{subfields.map(sub => {
 					return (
 						<div key={sub}>
 							{this.renderPEMInput(
@@ -1442,7 +1464,7 @@ class Form extends Component {
 
 	render() {
 		const translate = (value) => {
-			if (typeof value === 'string') {
+			if(typeof value === 'string') {
 				return this.props.t(value);
 			} else {
 				return value;
@@ -1450,8 +1472,10 @@ class Form extends Component {
 		};
 		try {
 			return (
-				<div className={(this.props.className ? this.props.className + ' ' : '') + 'ibp-form'} id={this.props.id}>
-					{this.props.fields.map((field) => {
+				<div className={(this.props.className ? this.props.className + ' ' : '') + 'ibp-form'}
+					id={this.props.id}
+				>
+					{this.props.fields.map(field => {
 						if (field.hidden) {
 							return <div key={field.name} />;
 						}
@@ -1471,7 +1495,9 @@ class Form extends Component {
 							field.hideLabel = true;
 						}
 						return (
-							<div className={this.getFieldClassName(field)} key={field.name}>
+							<div className={this.getFieldClassName(field)}
+								key={field.name}
+							>
 								{field.description && (
 									<div className="ibp-form-description">
 										<p>
@@ -1485,8 +1511,7 @@ class Form extends Component {
 										className={field.disabled ? 'ibp-form-label-disabled' : 'ibp-form-label'}
 									>
 										{field.tooltip ? (
-											<BlockchainTooltip
-												direction={field.tooltipDirection}
+											<BlockchainTooltip direction={field.tooltipDirection}
 												type="definition"
 												tooltipText={<Trans>{translate(field.tooltip, field.tooltipOptions)}</Trans>}
 											>
@@ -1525,7 +1550,7 @@ export default connect(
 	(state, props) => {
 		const res = {};
 		if (state[props.scope]) {
-			props.fields.forEach((field) => {
+			props.fields.forEach(field => {
 				if (state[props.scope][field.name] !== undefined) {
 					res[field.name] = state[props.scope][field.name];
 				}
@@ -1536,12 +1561,12 @@ export default connect(
 		} else {
 			res.formProps = {};
 		}
-		props.fields.forEach((field) => {
+		props.fields.forEach(field => {
 			if (!res.formProps[field.name]) {
 				res.formProps[field.name] = {};
 			}
 			if (res.formProps[field.name].subfields) {
-				res.formProps[field.name].subfields.forEach((sub) => {
+				res.formProps[field.name].subfields.forEach(sub => {
 					if (state[props.scope][sub] !== undefined) {
 						res[sub] = state[props.scope][sub];
 					}

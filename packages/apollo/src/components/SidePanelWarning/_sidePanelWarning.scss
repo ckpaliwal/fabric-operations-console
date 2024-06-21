@@ -2,46 +2,45 @@
 	background-color: $inverseBackground;
 	margin-top: 1rem;
 	position: relative;
-	// max-width: 52rem;
+	max-width: 52rem;
 
-	.cds--inline-notification {
+	.bx--inline-notification {
 		background-color: $inverseBackground;
 		margin: 0;
 		width: 100%;
 
 		.tl-link {
-			color: $blue-60;
+			color: $carbon--blue-60;
 		}
 	}
 
-	.cds--inline-notification__title {
-		@include font-weight('semibold');
+	.bx--inline-notification__title {
+		@include carbon--font-weight('semibold');
 		color: $inverseText;
 		min-width: 75%;
 	}
 
-	.cds--inline-notification__details {
+	.bx--inline-notification__details {
 		align-items: flex-start;
 
-		.cds--inline-notification__text-wrapper {
+		.bx--inline-notification__text-wrapper {
 			padding-top: 0.875rem;
 		}
 	}
 
-	.cds--inline-notification__subtitle {
-		@include type-style('body-short-01');
+	.bx--inline-notification__subtitle {
+		@include carbon--type-style('body-short-01');
 		color: $inverseText;
 
 		& * {
-			@include type-style('body-short-01');
+			@include carbon--type-style('body-short-01');
 		}
 	}
 
 	.ibp-side-panel-warning-notification {
-		max-width: 100%;
-		.cds--inline-notification__icon {
+		.bx--inline-notification__icon {
 			path[opacity='0'] {
-				fill: $cool-gray-80;
+				fill: $carbon--cool-gray-80;
 			}
 		}
 	}

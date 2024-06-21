@@ -10,32 +10,32 @@
 	margin-bottom: 2rem;
 }
 
-.cds--btn--secondary {
+.bx--btn--secondary {
 	background-color: $cancelButton;
 	color: $text;
 	margin-bottom: 1rem;
 	min-width: 100px;
 }
 
-.cds--btn--secondary:hover {
+.bx--btn--secondary:hover {
 	background-color: $cancelButtonHover;
 }
 
-// .cds--btn--primary {
-// 	background-color: $action;
-// 	min-width: 100px;
-// }
+.bx--btn--primary {
+	background-color: $action;
+	min-width: 100px;
+}
 
-// .cds--btn--primary:hover {
-// 	background-color: $actionHover;
-// }
+.bx--btn--primary:hover {
+	background-color: $actionHover;
+}
 
-.cds--file-filename.ibp-importPeer--fileName {
+.bx--file-filename.ibp-importPeer--fileName {
 	margin-bottom: 0.5rem;
 }
 
 .ibp-panel--content {
-	.cds--file__state-container {
+	.bx--file__state-container {
 		display: none;
 	}
 
@@ -86,7 +86,7 @@ fieldset.ibp-peer-locations {
 			background-color: $itemHover;
 		}
 
-		&.cds--tile--disabled{
+		&.bx--tile--disabled{
 			background: transparent;
 			color: #555;
 		}
@@ -97,12 +97,12 @@ fieldset.ibp-peer-locations {
 			right: 1rem;
 		}
 
-		.cds--tile__checkmark {
+		.bx--tile__checkmark {
 			display: none;
 		}
 	}
 
-	.cds--tile--is-selected {
+	.bx--tile--is-selected {
 		outline: 1px solid $action;
 	}
 }
@@ -116,7 +116,7 @@ JsonInputComponent {
 }
 
 .ibp-identity-keypair {
-	@include font-weight('semibold');
+	@include carbon--font-weight('semibold');
 	color: $field-label-color;
 }
 
@@ -124,8 +124,8 @@ JsonInputComponent {
 	margin-bottom: 1rem;
 
 	.summary-label {
-		@include type-style('label-01');
-		color: $cool-gray-30;
+		@include carbon--type-style('label-01');
+		color: $carbon--cool-gray-30;
 		padding-bottom: 0.1875rem;
 	}
 
@@ -140,7 +140,7 @@ JsonInputComponent {
 }
 
 .ibp-third-party-ca {
-	.cds--checkbox-wrapper {
+	.bx--checkbox-wrapper {
 		display: inline-block;
 	}
 
@@ -163,9 +163,9 @@ JsonInputComponent {
 }
 
 .ibp-usage-footer {
-	@include type-style('body-short-01');
+	@include carbon--type-style('body-short-01');
 	background-color: $inverseBackground;
-	border-top: 3px solid $blue-50;
+	border-top: 3px solid $carbon--blue-50;
 	color: $inverseText;
 	display: flex;
 	flex-direction: row;
@@ -176,25 +176,25 @@ JsonInputComponent {
 		padding: 1rem;
 
 		.ibp-usage-footer-heading {
-			@include font-weight('semibold');
+			@include carbon--font-weight('semibold');
 		}
 	}
 }
 
 #saasCA-enroll_id {
-	.cds--skeleton.cds--dropdown-v2.cds--list-box.cds--form-item {
+	.bx--skeleton.bx--dropdown-v2.bx--list-box.bx--form-item {
 		height: 3.5rem;
 		max-height: 3.5rem;
 	}
 }
 
 .ibp-importPeer--accordion {
-	.cds--accordion__content {
+	.bx--accordion__content {
 		padding-right: 1rem;
 	}
 
 	.ibp-accordion-form {
-		.cds--radio-button-wrapper .cds--radio-button__label {
+		.bx--radio-button-wrapper .bx--radio-button__label {
 			justify-content: left;
 		}
 	}
@@ -203,7 +203,7 @@ JsonInputComponent {
 .ibp-peer-state-database {
 	margin-top: 1rem;
 
-	.cds--checkbox-wrapper {
+	.bx--checkbox-wrapper {
 		display: inline-block;
 	}
 
@@ -211,7 +211,7 @@ JsonInputComponent {
 		display: inline;
 	}
 
-	.cds--radio-button-wrapper .cds--radio-button__label {
+	.bx--radio-button-wrapper .bx--radio-button__label {
 		align-items: left;
 		justify-content: left;
 		margin-top: 0.25rem;
@@ -239,7 +239,7 @@ JsonInputComponent {
 
 .ibp-peer-database-wizard,
 .ibp-peer-zone-wizard {
-	.cds--radio-button-wrapper .cds--radio-button__label {
+	.bx--radio-button-wrapper .bx--radio-button__label {
 		align-items: left;
 		justify-content: left;
 		margin-top: 0.25rem;
