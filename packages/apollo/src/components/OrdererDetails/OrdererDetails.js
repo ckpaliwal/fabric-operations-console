@@ -296,6 +296,7 @@ class OrdererDetails extends Component {
 	}
 
 	checkHealth(orderer, skipStatusCache) {
+		let nodeStatus = { ...this.props.nodeStatus };
 		NodeStatus.getStatus(
 			{
 				...orderer,
@@ -304,7 +305,7 @@ class OrdererDetails extends Component {
 			SCOPE,
 			'details',
 			(id, status) => {
-				const nodeStatus = { ...this.props.nodeStatus };
+				// const nodeStatus = { ...this.props.nodeStatus };
 				nodeStatus[id] = status;
 				this.props.updateState(SCOPE, { nodeStatus });
 				if (this.timestamp) {
